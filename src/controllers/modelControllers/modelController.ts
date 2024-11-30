@@ -5,10 +5,6 @@ import { session } from '../../app';
 
 export const predictFromInputImage = catchAsync(
   async (req: Request, res: Response) => {
-    if (!req.file) {
-      return res.status(400).json({ error: 'No image file uploaded' });
-    }
-
     try {
       if (!req.file) {
         return res.status(400).send({ error: 'No file uploaded' });

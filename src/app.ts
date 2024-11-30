@@ -11,7 +11,6 @@ import userRouter from './routes/userRoutes';
 import viewRouter from './routes/viewRoutes';
 import { catchErrorMiddleware } from './middleware/catchError';
 import * as ort from 'onnxruntime-node';
-import * as sharp from 'sharp';
 
 const app = express();
 
