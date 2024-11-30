@@ -4,7 +4,11 @@ import { IUser } from '../interface/IUser';
 import { Request } from 'express';
 import { ErrorHandler } from '../utils/ErrorHandler';
 
-export const uploadImage = (folderName: string, fieldName: string) => {
+
+export const uploadImage = (
+  folderName: string,
+  fieldName: string
+) => {
   const multerDiskStorage = diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.join(__dirname, `../public/img/${folderName}`));
@@ -40,5 +44,5 @@ export const uploadImage = (folderName: string, fieldName: string) => {
     storage: multerDiskStorage,
     fileFilter: multerFilterCallback,
   });
-  return upload.array(fieldName, 5);
+  return upload.single(fieldName);
 };
