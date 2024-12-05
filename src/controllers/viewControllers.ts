@@ -12,6 +12,14 @@ export const renderHome = catchAsync(
   }
 );
 
+export const renderView = (viewName: string, title: string) => {
+  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).render(viewName, {
+      title,
+    });
+  });
+};
+
 export const renderLogin = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).render('login', {

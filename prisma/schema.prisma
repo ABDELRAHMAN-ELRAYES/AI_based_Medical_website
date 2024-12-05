@@ -14,17 +14,18 @@ datasource db {
 }
 
 model User {
-  id                     String    @id @default(uuid())
+  id                     String   @id @default(uuid())
   name                   String
-  username               String    @unique
-  email                  String    @unique
+  email                  String   @unique
   relativeEmail          String?
   password               String
-  joinedDate             DateTime  @default(now())
-  resetPasswordUpdatedAt DateTime  @updatedAt
-  resetPasswordToken     String    @default("")
-  phoneNumber            String?
-  role                   String    @default("user")
-  birthDate              DateTime?
-  profilePicture         String?
+  joinedDate             DateTime @default(now())
+  resetPasswordUpdatedAt DateTime @updatedAt
+  resetPasswordToken     String   @default("")
+  role                   String   @default("user")
+  address                String
+  age                    String
+  title                  String?
+  phone                  String?
+  idVerificationImg      String?
 }

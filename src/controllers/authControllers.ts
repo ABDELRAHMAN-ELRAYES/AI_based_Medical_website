@@ -9,6 +9,7 @@ import randomatic from 'randomatic';
 import { IToken } from '../interface/IVerifyToken';
 import { IUser } from '../interface/IUser';
 import { IGoogleUser } from '../interface/IGoogleUser';
+import { IData } from '../interface/IUserData';
 
 const prisma = new PrismaClient();
 
@@ -42,43 +43,64 @@ const verifyToken = async (token: string) => {
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    const email = req.body.userEmail;
+
+    // check the email is found previously
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+    if (user) {
+      return next(new ErrorHandler(400, 'This Email is already found!.'));
+    }
+
     // hashing user password before storing it
     const hashedPassword = await hash(req.body.password as string);
 
+    const role = req.body.role;
+
     // extract data from request body
-    const data = {
-      name: req.body.name,
-      username: req.body.username,
-      email: req.body.email,
+    const fullName = req.body.firstName + ' ' + req.body.lastName;
+    const data: IData = {
+      name: fullName,
+      email: req.body.userEmail,
       relativeEmail: req.body.relativeEmail,
       password: hashedPassword,
-      birthDate: req.body.birthDate,
-      phoneNumber: req.body.phoneNumber,
-      profilePicture: req.file?.filename,
+      age: req.body.age,
+      address: req.body.address,
+      role,
     };
 
-    // create new user in database
-    const user = await prisma.user.create({ data });
+    if (role === 'doctor') {
+      data.title = req.body.title;
+      data.phone = req.body.phone;
+      data.idVerificationImg = req.file?.filename;
+    }
+
+    const newUser = await prisma.user.create({ data });
 
     // generate token with user id
-    const token = await generateToken(req, res, user.id);
+    const token = await generateToken(req, res, newUser.id);
 
-    res.status(200).json({
-      status: 'you are logged in successfully!.',
-      token,
-      user,
-    });
+    // res.status(201).json({
+    //   status: 'you are logged in successfully!.',
+    //   token,
+    //   user,
+    // });
+
+    res.status(200).redirect('/home');
   }
 );
 
 export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // get user data from request body to authenticate using it
-    const usernameOrEmail = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
     // check if the user input the username or email with the password
-    if (!usernameOrEmail || !password)
+    if (!email || !password)
       return next(
         new ErrorHandler(400, 'Please fill all fields then try Again...!.')
       );
@@ -86,32 +108,35 @@ export const login = catchAsync(
     // find user if registered or not
     const user = await prisma.user.findFirst({
       where: {
-        OR: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
+        email,
       },
     });
-    if (!user)
+    if (!user) {
       return next(
         new ErrorHandler(
           404,
-          'Email, Username or Password are not correct..!, Try Again!.'
+          'Email or Password are not correct..!, Try Again!.'
         )
       );
+    }
     // check if the password is correct or not
     const verifyPassword = await compare(password, user.password);
-    if (!verifyPassword)
+    if (!verifyPassword) {
       return next(
         new ErrorHandler(
           401,
-          'Email, Username or Password are not correct..!., Try Again!.'
+          'Email or Password are not correct..!., Try Again!.'
         )
       );
+    }
     // generate token with user id)
     const token = await generateToken(req, res, user.id);
 
-    res.status(200).json({
-      status: 'you are logged in successfully!.',
-      token,
-    });
+    // res.status(200).json({
+    //   status: 'you are logged in successfully!.',
+    //   token,
+    // });
+    res.status(200).redirect('/home');
   }
 );
 export const loginWithGoogle = catchAsync(

@@ -10,7 +10,7 @@ export const bodyParserMiddleware = express.json();
 export const formParser = express.urlencoded({ extended: true });
 export const cookieParserMiddleware = cookieParser();
 export const passportInitializationMiddleware = passport.initialize();
-export const uploadUserImageMiddleware = uploadImage('users', 'profilePicture');
+export const uploadUserImageMiddleware = uploadImage('doctors-verification', 'idVerification');
 export const uploadInputImageFromUserToBePredicted = uploadImage(
   'predict-users-images',
   'image'

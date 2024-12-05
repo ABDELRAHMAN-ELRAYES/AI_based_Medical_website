@@ -25,6 +25,7 @@ export const predictFromInputImage = catchAsync(
       const outputName = session.outputNames[0];
       const outputData = results[outputName].data;
       res.json({ prediction: Array.from(outputData) });
+      
     } catch (error) {
       console.error('Error during inference:', error);
       res.status(500).send({ error: 'Failed to process the image' });

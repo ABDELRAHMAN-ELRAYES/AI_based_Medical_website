@@ -15,7 +15,7 @@ import {
 import { uploadUserImageMiddleware } from '../middleware/middlewares';
 const userRouter = Router();
 
-userRouter.post('/signup', signup);
+userRouter.post('/signup', uploadUserImageMiddleware,signup);
 userRouter.post('/login', login);
 userRouter.route('/').get(getAllUsers).post(createUser);
 userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);

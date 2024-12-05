@@ -1,0 +1,96 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title AI Models | #{title}
+    link(rel="icon" href="/img/images/logo.png")
+    link(rel="stylesheet" href="/styles/tailwind.css")
+    script(src="/js/signup.js" defer)
+
+  body
+    // Container
+    div(class="flex flex-wrap w-full h-screen content-center justify-center bg-gray-100 p-10")
+      // Sign Up Form
+      div(class="bg-white w-1/2 max-800:w-2/3 max-600:w-full h-auto shadow-2xl rounded-xl overflow-hidden px-10 py-5")
+        // Heading
+        h1(class="text-2xl font-bold text-center") Sign Up
+
+        p(class="text-gray-400 text-sm text-center my-2") Join to Our Community NOW
+
+        // Form
+        form(action="/users/signup" method="POST" enctype="multipart/form-data")
+          // first name and last name
+          div(class="mb-3 flex gap-8 justify-between")
+            // First Name
+            div(class="w-1/2")
+              label(class="mb-2 block text-xl font-semibold") First Name
+              input(type="text", name="firstName" placeholder="First Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+            // Last Name
+            div(class="w-1/2")
+              label(for="lastName", class="mb-2 block text-xl font-semibold") LastName
+              input(type="text", name="lastName" placeholder="Last Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+          // Email
+          div(class="mb-3")
+            label(class="mb-2 block text-xl font-semibold") Email
+            input(type="email", name="userEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+          //Relative Email
+          div(class="mb-3")
+            label(class="mb-2 block text-xl font-semibold") Direct Relative Email
+            input(type="email", name="relativeEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+          // Password
+          div(class="mb-3")
+            label(class="mb-2 block text-xl font-semibold") Password
+            div(class="relative")
+              input(type="password", name="password" placeholder="********", id="password_input", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-500")
+              // View Icon (visible by default)
+              img(class="w-4 absolute right-4 top-2 order-1 cursor-pointer", src="/img/images/Hide.svg", alt="view_icon", id="password_icon_view", onclick="togglePasswordVisibility()")
+              // Hide Icon (hidden by default)
+              img(class="w-4 absolute right-4 top-2 order-1 cursor-pointer hidden", src="/img/images/Show.svg", alt="view_icon", id="password_icon_hide", onclick="togglePasswordVisibility()")
+
+          div(class="mb-3 flex gap-8 justify-between")
+            // Address
+            div(class="w-1/2")
+              label(class="mb-2 block text-xl font-semibold") Address
+              input(type="text", name="address" placeholder="Address", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+            // Age
+            div(class="w-1/2")
+              label(for="age", class="mb-2 block text-xl font-semibold") Age
+              input(type="text", name="age" placeholder="Age", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+          // Role
+          div(class="mb-3 flex gap-8 justify-between")
+            div(class="w-1/2")
+              label(for="age", class="mb-2 block text-xl font-semibold") Role
+              input(type="radio", id="patient", name="role", value="patient", onclick="toggleImageInput()", class="cursor-pointer")
+              label(for="patient", class="cursor-pointer") Patient
+              br
+              input(type="radio", id="doctor", name="role", value="doctor", onclick="toggleImageInput()", class="cursor-pointer")
+              label(for="doctor", class="cursor-pointer") Doctor
+
+            // Image
+            div(class="w-1/2 hidden", id="doctor_container")
+              label(for="image", class="text-xl font-semibold") Image
+              input(type="file",name="idVerification" accept="image/*", id="image", class="w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+              label(for="title", class="my-2 inline-block text-xl font-semibold") Title
+              input(type="text",name="doctorTitle" id="title", class="w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+              label(for="phone", class="text-xl font-semibold") Phone
+              input(type="text",name="doctorPhone" id="phone", class="w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+          // Buttons
+          div(class="mb-3")
+            button(class="mb-1.5 block text-xl w-full text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-1.5 rounded-md") Sign Up
+            a(src="" class="text-xl flex items-center flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md")
+              img(class="w-5 mr-2", src="/img/images/google-icon.png")
+              | Sign up with Google
+
+          // Footer
+          div(class="text-center")
+            span(class="text-base text-gray-400 font-semibold") Already have an account?
+            a(href="/login", class="text-base font-semibold text-blue-700") Log in
+
+    p(style="background-color: #d5d5d5")

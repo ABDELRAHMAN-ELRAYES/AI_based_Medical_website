@@ -1,0 +1,47 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title AI Models | #{title}
+    link(rel="icon" href="/img/images/logo.png")
+    link(rel="stylesheet" href="/styles/tailwind.css")
+    script(src="/js/login.js" defer)
+  body
+    div(class="flex flex-wrap h-screen w-full content-center justify-center bg-gray-100 py-10")
+      div(class="flex shadow-2xl rounded-xl overflow-hidden w-[460px] min-h-[80%] max-800:w-4/5 bg-white")
+        div(class="flex flex-wrap content-center justify-center p-10 max-1000:w-full")
+          div(class="w-96 max-1000:w-4/5")
+            h1(class="text-2xl font-semibold") Welcome Back
+            small(class="text-gray-400 text-sm") Please enter your information.
+
+            form(action="/users/login" method="POST" class="mt-4" )
+              div(class="mb-3")
+                label(class="mb-2 block text-xl font-semibold") Username or Email
+                input(name="email" type="text" placeholder="example@example.com" required class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+
+              div(class="mb-3")
+                label(class="mb-2 block text-xl font-semibold") Password
+                div(class="relative")
+                  input(name="password" type="password" placeholder="********" id="password_input" required class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+                  img(class="w-4 absolute right-4 top-2 order-1 cursor-pointer" src="/img/images/Hide.svg" alt="view_icon" id="password_icon_view" onclick="togglePasswordVisibility()")
+                  img(class="w-4 absolute right-4 top-2 order-1 cursor-pointer hidden" src="/img/images/Show.svg" alt="view_icon" id="password_icon_hide" onclick="togglePasswordVisibility()")
+
+              div(class="mb-3 flex flex-wrap content-center")
+                input(id="remember" type="checkbox" name="remember" class="mr-1 checked:bg-blue-700")
+                label(for="remember" class="mr-auto text-sm font-semibold") Remember me
+                a(href="/forgot-password" class="text-sm font-semibold text-blue-700") Forgot password?
+
+              div(class="mb-3")
+                button(type="submit" class="my-2 block w-full text-xl text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-1.5 rounded-md") Log In
+                a(class="text-xl flex items-center flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md")
+                  img(class="w-5 mr-2", src="/img/images/google-icon.png")
+                  | Login with Google
+
+            div(class="text-center")
+              span(class="text-base text-gray-400 font-semibold") Don't have an account?
+              a(href="/signup" class="text-base font-semibold text-blue-700") Sign up
+      // Login banner (Image)
+      div(class="flex w-52rem flex-wrap content-center justify-center rounded-r-md max-1000:hidden")
+        img(class="h-full bg-no-repeat rounded-r-md object-cover" src="/img/images/login-bg.jpg")
+

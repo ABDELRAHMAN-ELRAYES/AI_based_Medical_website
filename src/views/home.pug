@@ -1,11 +1,147 @@
 doctype html
-html(lang="en") 
-    head 
-        meta(charset="UTF-8")
-        meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        title AI Model | #{title}
-        
-    body
-        form( action="/predict" method="POST" enctype="multipart/form-data")
-            input(type="file" name="image") 
-            button(type="submit") Predict
+html(lang="en" class="scroll-smooth")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title AI Models | #{title}
+    link(rel="stylesheet" href="/styles/tailwind.css")
+    link(rel="icon" href="/img/images/logo.png")
+    script(src="/js/home.js" defer)
+  body
+    nav(id="home" class="flex justify-between h-20 shadow-xl")
+      div(class="p-4 w-28 flex items-center")
+        img(src="/img/images/logo.png" class="w-full h-auto cursor-pointer" alt="Logo")
+      div(class="p-6")
+        img(id="open_icon" src="/img/images/home-header.jpg" onclick="handleClickOpen()" class="w-8 min-800:hidden cursor-pointer")
+        ul(class="flex max-800:hidden")
+          if !user
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="#Services") Services
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="#models") Models
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="/login") Log In
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+            li(class="mx-6 cursor-pointer text-xl hover:text-white")
+              a(href="/signup" class="bg-gray-400 hover:bg-gray-600 py-2 px-4 rounded-2xl") Sign Up
+          else
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="#Services") Services
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="#models") Models
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+            li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
+              a(href="/profile") Profile
+              span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
+        ul(id="small" class="hidden min-800:hidden w-80 max-550:w-screen bg-gray-200 relative -right-8 -top-4 z-20 h-[94vh]")
+          if !user
+            li(class="w-full cursor-pointer p-2" onclick="handleClickClose()")
+              img(id="close_icon" src="../images/close.svg" class="w-8")
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="#Services" class="inline-block h-full w-full") Services
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="#models" class="inline-block h-full w-full") Models
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="login.pug" class="inline-block h-full w-full") Log In
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="signup.pug" class="inline-block h-full w-full") Sign Up
+          else
+            li(class="w-full cursor-pointer p-2" onclick="handleClickClose()")
+              img(id="close_icon" src="../images/close.svg" class="w-8")
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="#Services" class="inline-block h-full w-full") Services
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="#models" class="inline-block h-full w-full") Models
+            li(class="w-full hover:bg-[#2b2e34] hover:text-white cursor-pointer my-2 p-2 text-lg")
+              a(href="/profile" class="inline-block h-full w-full") Profile
+    main
+      section(class="bg-gray-100 h-[500px] flex")
+        div(class="w-1/2 flex justify-center items-center max-1000:pl-8")
+          div
+            h1(class="font-mono text-3xl font-semibold") Welcome to NeuroHeart Health
+            p(class="mt-4 text-xl text-gray-500") Empowering Your Journey to a Healthier Mind and Heart.
+            a(href="#models" class="inline-block mt-8 text-gray-600 hover:underline") Check Your Disease Now
+        div(class="w-1/2")
+          img(src="/img/images/home-header.jpg" class="w-full h-full object-cover relative z-10" alt="")
+      section(class="bg-[#2b2e34] py-8")
+        div(class="w-1/2 flex flex-col justify-center items-center pl-14 max-900:px-12 max-1000:w-full")
+          h2(class="w-full text-white text-2xl") Our Solutions Guide You 
+            span(class="text-gray-400 inline-block mt-4") Towards a Healthier Future, One Step at a Time.
+          div(class="w-full flex justify-between mt-10 max-1000:flex-col max-1000:gap-8 max-1000:w-1/2 max-1000:self-start")
+            button(class="bg-white text-xl text-[#2b2e34] hover:bg-[#66c7ff] px-4 py-2 rounded-sm outline-none")
+              a(href="#Services") See Our Service
+            button(class="bg-gray-300 text-xl hover:bg-[#2b2e34] hover:text-white px-4 py-2 rounded-sm outline-none")
+              a(href="#models") Check Your Disease NOW
+      section#Services(class="p-8 font-mono w-4/5 mx-auto max-900:w-full")
+        h1(class="text-4xl font-bod text-center p-16") Our Service
+        // First Service
+        div(class="h-96 flex gap-20 mb-16 max-700:h-auto max-700:mb-10 max-800:gap-10")
+          div(class="w-1/2 max-700:w-full")
+            h1(class="text-gray-400 text-5xl font-bold mb-4") 01
+            h2(class="text-3xl mb-4") Advanced Disease Prediction
+            p(class="text-gray-500 text-xl") Leverage the power of AI to predict diseases with accuracy and speed. Our platform helps identify potential health risks early, giving you peace of mind and control over your health.
+          img(src="/img/images/service-one.jpg" class="w-1/2 object-cover max-700:hidden")
+        // Second Service
+        div(class="h-96 flex gap-20 mb-16 max-700:h-auto max-700:mb-10 max-800:gap-10")
+          img(src="/img/images/service-two.jpg" class="w-1/2 object-cover max-700:hidden")
+          div(class="w-1/2 max-700:w-full")
+            h1(class="text-gray-400 text-5xl font-bold mb-4") 02
+            h2(class="text-3xl mb-4") Personalized Health Insights
+            p(class="text-gray-500 text-xl") Receive health recommendations tailored just for you. We consider your unique medical history and lifestyle to provide actionable advice that fits your needs.
+        // Third Service
+        div(class="h-96 flex gap-20 mb-16 max-700:h-auto max-700:mb-10 max-800:gap-10")
+          div(class="w-1/2 max-700:w-full")
+            h1(class="text-gray-400 text-5xl font-bold mb-4") 03
+            h2(class="text-3xl mb-4") Comprehensive Health Analysis
+            p(class="text-gray-500 text-xl") Our system covers a broad range of diseases, offering detailed insights and predictions. Stay informed and proactive about your health with our reliable tools.
+          img(src="/img/images/service-three.jpg" class="w-1/2 object-cover max-700:hidden")
+        // Fourth Service
+        div(class="h-96 flex gap-20 mb-8 max-700:h-auto max-800:gap-10")
+          img(src="/img/images/service-four.jpg" class="w-1/2 object-cover max-700:hidden")
+          div(class="w-1/2 max-700:w-full")
+            h1(class="text-gray-400 text-5xl font-bold mb-4") 04
+            h2(class="text-3xl mb-4") Real-time Alerts & Updates
+            p(class="text-gray-500 text-xl") Stay ahead of health concerns with instant updates. Our platform monitors key indicators and provides timely alerts to help you make quick, informed decisions.
+      // =========================== Choose Model Section ===========================
+      h1(id="models" class="text-4xl font-mono font-semibold text-center p-16") Choose Your Disease Test
+      section(class="bg-[#2b2e34] p-14 grid gap-8 grid-cols-3 max-900:grid-cols-2 max-600:grid-cols-1")
+        //========================================== Model 1 ==========================================
+        a(href="/brain-tumor" class="block p-2 border border-slate-300 rounded-2xl")
+          div(class="h-[300px] max-600:col-span-2 cursor-pointer relative group")
+            h1(class="absolute top-20 left-1/2 -translate-x-1/2 text-3xl font-bold text-blue-950") Brain Tumor Test
+            p(class="absolute top-36 left-10 text-xl text-blue-950") This an AI model to analyze brain images and determine if they are healthy or show signs of a brain tumor, aiding in quick and accurate diagnosis.
+            img(src="/img/images/models-bg/brain-tumor-bg.jpg" class="w-full h-full object-cover rounded-2xl")
+            p(class="text-xl text-white rounded-2xl absolute left-0 bottom-0 h-0 w-full p-8 bg-gray-500 bg-opacity-70 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:h-full group-hover:w-full") This model is to analyze brain images for detecting tumors. It provides fast, accurate assessments to support healthcare professionals in diagnosing and treating brain conditions effectively.
+        // ========================================== Model 2 ==========================================
+        a(href="" class="block p-2 border border-slate-300 rounded-2xl")
+        a(href="/heart-disease" class="block p-2 border border-slate-300 rounded-2xl")
+          div(class="h-[300px] max-600:col-span-2 cursor-pointer relative group")
+            h1(class="absolute top-20 left-1/2 -translate-x-1/2 text-3xl text-blue-950") Heart Disease Test
+            p(class="absolute top-36 left-10 text-xl text-blue-950") This is an AI model to analyze heart-related data and predict the risk of heart disease, offering quick insights for early diagnosis and prevention.
+            img(src="/img/images/models-bg/heart-disease-bg.jpg" class="w-full h-full object-cover rounded-2xl")
+            p(class="text-xl text-white rounded-2xl absolute left-0 bottom-0 h-0 w-full p-8 bg-gray-500 bg-opacity-70 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:h-full group-hover:w-full") This model designed to assess heart health by analyzing various medical data. The model identifies potential risks for heart disease, providing healthcare professionals with accurate predictions to enable early intervention and improve patient outcomes.
+        // ========================================== Model 3 ==========================================
+        a(href="model3" class="block p-2 border border-slate-300 rounded-2xl")
+          div(class="h-[300px] max-900:col-span-2 max-600:col-span-2 cursor-pointer relative group")
+            h1(class="absolute top-20 left-1/2 -translate-x-1/2 text-3xl font-bold") Model 3
+            p(class="absolute top-36 left-10 text-xl") This is a simple description of Model
+            img(src="../images/test.jpg" class="w-full h-full object-cover rounded-2xl")
+            p(class="text-xl text-white rounded-2xl absolute left-0 bottom-0 h-0 w-full p-8 bg-gray-500 bg-opacity-70 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:h-full group-hover:w-full") MORE information about this model
+        // ========================================== Model 4 ==========================================
+        a(href="model4.pug" class="block p-2 border border-slate-300 rounded-2xl")
+          div(class="h-[300px] max-900:col-span-2 max-600:col-span-2 cursor-pointer relative group")
+            h1(class="absolute top-20 left-1/2 -translate-x-1/2 text-3xl font-bold") Model 4
+            p(class="absolute top-36 left-10 text-xl") This is a simple description of Model
+            img(src="../images/test.jpg" class="w-full h-full object-cover rounded-2xl")
+            p(class="text-xl text-white rounded-2xl absolute left-0 bottom-0 h-0 w-full p-8 bg-gray-500 bg-opacity-70 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:h-full group-hover:w-full") MORE information about this model
+        // ========================================== Model 5 ==========================================
+        a(href="model5.pug" class="block p-2 border border-slate-300 rounded-2xl")
+          div(class="h-[300px] max-900:col-span-2 max-600:col-span-2 cursor-pointer relative group")
+            h1(class="absolute top-20 left-1/2 -translate-x-1/2 text-3xl font-bold") Model 5
+            p(class="absolute top-36 left-10 text-xl") This is a simple description of Model
+            img(src="../images/test.jpg" class="w-full h-full object-cover rounded-2xl")
+            p(class="text-xl text-white rounded-2xl absolute left-0 bottom-0 h-0 w-full p-8 bg-gray-500 bg-opacity-70 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:h-full group-hover:w-full") MORE information about this model
+
