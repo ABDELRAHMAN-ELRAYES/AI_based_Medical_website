@@ -159,9 +159,11 @@ export const loginWithGoogle = catchAsync(
     }
     // create a token using user id
     const token = await generateToken(req, res, user.id);
+    
+    console.log(token);
 
     // redirect user to home page
-    res.status(200).redirect('http://localhost:3000/home');
+    res.status(200).redirect('/home');
   }
 );
 
@@ -310,6 +312,15 @@ export const restrictTo = (...role: string[]) => {
     next();
   };
 };
+export const logout = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+    res.redirect('/');
+  }
+);
 
 export const forgetPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {}

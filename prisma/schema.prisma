@@ -23,9 +23,24 @@ model User {
   resetPasswordUpdatedAt DateTime @updatedAt
   resetPasswordToken     String   @default("")
   role                   String   @default("user")
-  address                String
-  age                    String
+  address                String?  @default("OAuth_Registeration")
+  age                    String?  @default("OAuth_Registeration")
   title                  String?
   phone                  String?
   idVerificationImg      String?
+
+  prediction Prediction[]
+}
+
+model Prediction {
+  id              String   @id @default(uuid())
+  modelName       String
+  result          String
+  resultInNumbers String
+  tips            String
+  diseaseImg      String
+  predictionDate  DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

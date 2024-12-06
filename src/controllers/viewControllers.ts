@@ -27,3 +27,21 @@ export const renderLogin = catchAsync(
     });
   }
 );
+export const renderUserReport = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const predictionId = req.params.predictionId as string;
+    const predictionResult = await prisma.prediction.findFirst({
+      where: {
+        id: predictionId,
+      },
+      include: {
+
+        user: true,
+      },
+    });
+    res.status(200).render('report', {
+      title: 'Report',
+      prediction: predictionResult,
+    });
+  }
+);

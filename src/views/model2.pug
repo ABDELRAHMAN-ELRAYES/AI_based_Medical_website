@@ -47,8 +47,9 @@ html(lang="en")
 
     h1(class="text-3xl text-center p-10 font-mono") Heart Disease Test
     section(class="py-14 font-mono bg-[#2b2e34]")
-      form(id="dropzone" class="w-2/3 max-700:w-11/12 max-600:w-full mx-auto bg-white p-2 border-2 border-dashed border-gray-300 rounded-lg shadow-sm hover:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2" action="/predict" method="POST")
+      form(id="dropzone" class="w-2/3 max-700:w-11/12 max-600:w-full mx-auto bg-white p-2 border-2 border-dashed border-gray-300 rounded-lg shadow-sm hover:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2" action="/predict-chest-x-ray" method="POST"  enctype="multipart/form-data")
         // Image Container
+        input(type="text" value="Chest X Ray Test" name="modelName" style="display:none")
         div(class="h-96 bg-gray-300 relative rounded-xl")
           input(type="file" name="image" accept="image/*" id="fileInput" class="absolute top-0 left-0 h-full w-full z-50 opacity-0 cursor-pointer" required)
           div(id="placeholder" class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center text-center p-4")
