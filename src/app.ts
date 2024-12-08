@@ -13,13 +13,14 @@ import { catchErrorMiddleware } from './middleware/catchError';
 import * as ort from 'onnxruntime-node';
 import googleRouter from './routes/googleRoutes';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { renderNotFoundErrorPage } from './utils/ErrorHandler';
+
 
 const app = express();
 
 // integrate with gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 export const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
 
 //! load AI Brain Tumor onnx model
 const brainTumorModelPath = process.env.BRAIN_TUMOR_MODEL_PATH as string;
@@ -47,7 +48,6 @@ ort.InferenceSession.create(chestXRayModelPath)
     console.error('Failed to load Chest X Ray model:', err);
   });
 
-
 // using middlewares
 app.use(bodyParserMiddleware);
 app.use(formParser);
@@ -63,9 +63,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // mounting routers
-app.use('/auth/google',googleRouter);
+app.use('/auth/google', googleRouter);
 app.use('/users', userRouter);
 app.use('/', viewRouter);
+app.use('*', renderNotFoundErrorPage);
 
 // Global Error Handling
 app.use(catchErrorMiddleware);

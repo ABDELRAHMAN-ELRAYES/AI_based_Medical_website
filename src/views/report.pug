@@ -9,7 +9,7 @@ html(lang="en")
     script(src="/js/home.js" defer)
     script(src="/js/report.js" defer)
     script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js" defer)
-    
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer)
   body
     // Nav Bar
     nav(class="flex justify-between h-20 shadow-xl")
@@ -52,7 +52,7 @@ html(lang="en")
           if prediction.tips
             p(class="text-center text-gray-700") Advice:
             blockquote(class="text-center text-gray-500") #{prediction.tips}
-          button(onclick="exportStyledTableToPDF()" class="px-4 py-2 text-2xl bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600 focus:outline-none") Export as PDF
+          button( id="downloadPdfButton" class="m-3 inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition-colors duration-200") Download as PDF
 
 
     // Some Recommended Doctors

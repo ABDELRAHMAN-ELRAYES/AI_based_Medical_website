@@ -31,7 +31,9 @@ html(lang="en")
                 input(id="remember" type="checkbox" name="remember" class="mr-1 checked:bg-blue-700")
                 label(for="remember" class="mr-auto text-sm font-semibold") Remember me
                 a(href="/forgot-password" class="text-sm font-semibold text-blue-700") Forgot password?
-
+              
+              if message  
+                p(class="text-red-500") #{message}
               div(class="mb-3")
                 button(type="submit" class="my-2 block w-full text-xl text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-1.5 rounded-md") Log In
             a(href="http://localhost:3000/auth/google" class="text-xl flex items-center flex-wrap justify-center w-full border border-gray-300 hover:border-gray-500 px-2 py-1.5 rounded-md")

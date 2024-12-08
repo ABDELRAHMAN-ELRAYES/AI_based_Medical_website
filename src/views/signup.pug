@@ -25,26 +25,26 @@ html(lang="en")
             // First Name
             div(class="w-1/2")
               label(class="mb-2 block text-xl font-semibold") First Name
-              input(type="text", name="firstName" placeholder="First Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+              input(type="text", name="firstName" placeholder="First Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
             // Last Name
             div(class="w-1/2")
               label(for="lastName", class="mb-2 block text-xl font-semibold") LastName
-              input(type="text", name="lastName" placeholder="Last Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+              input(type="text", name="lastName" placeholder="Last Name", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
 
           // Email
           div(class="mb-3")
             label(class="mb-2 block text-xl font-semibold") Email
-            input(type="email", name="userEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+            input(type="email", name="userEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
           //Relative Email
           div(class="mb-3")
             label(class="mb-2 block text-xl font-semibold") Direct Relative Email
-            input(type="email", name="relativeEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+            input(type="email", name="relativeEmail" placeholder="example@gmail.com", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
 
           // Password
           div(class="mb-3")
             label(class="mb-2 block text-xl font-semibold") Password
             div(class="relative")
-              input(type="password", name="password" placeholder="********", id="password_input", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-500")
+              input(type="password", name="password" placeholder="********", id="password_input", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-500" required)
               // View Icon (visible by default)
               img(class="w-4 absolute right-4 top-2 order-1 cursor-pointer", src="/img/images/Hide.svg", alt="view_icon", id="password_icon_view", onclick="togglePasswordVisibility()")
               // Hide Icon (hidden by default)
@@ -54,11 +54,11 @@ html(lang="en")
             // Address
             div(class="w-1/2")
               label(class="mb-2 block text-xl font-semibold") Address
-              input(type="text", name="address" placeholder="Address", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+              input(type="text", name="address" placeholder="Address", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
             // Age
             div(class="w-1/2")
               label(for="age", class="mb-2 block text-xl font-semibold") Age
-              input(type="text", name="age" placeholder="Age", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+              input(type="text", name="age" placeholder="Age", class="block w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700" required)
 
           // Role
           div(class="mb-3 flex gap-8 justify-between")
@@ -80,6 +80,8 @@ html(lang="en")
 
               label(for="phone", class="text-xl font-semibold") Phone
               input(type="text",name="doctorPhone" id="phone", class="w-full rounded-md border border-gray-300 focus:border-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-700 py-1 px-1.5 text-gray-700")
+          if message  
+              p(class="text-red-500") #{message}
 
           // Buttons
           div(class="mb-3")

@@ -35,13 +35,25 @@ export const renderUserReport = catchAsync(
         id: predictionId,
       },
       include: {
-
         user: true,
       },
     });
     res.status(200).render('report', {
       title: 'Report',
       prediction: predictionResult,
+    });
+  }
+);
+export const renderUserProfile = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const predictions = await prisma.prediction.findMany({
+      where: {
+        userId: req.user?.id as string,
+      },
+    });
+    res.status(200).render('profile', {
+      title: 'Profile',
+      predictions,
     });
   }
 );

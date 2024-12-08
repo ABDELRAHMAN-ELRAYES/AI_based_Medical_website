@@ -52,7 +52,10 @@ export const signup = catchAsync(
       },
     });
     if (user) {
-      return next(new ErrorHandler(400, 'This Email is already found!.'));
+      return res.status(400).render('signup', {
+        title: 'Sign up',
+        message: 'This Email is already found, try Again...!',
+      });
     }
 
     // hashing user password before storing it
@@ -100,11 +103,12 @@ export const login = catchAsync(
     const password = req.body.password;
 
     // check if the user input the username or email with the password
-    if (!email || !password)
-      return next(
-        new ErrorHandler(400, 'Please fill all fields then try Again...!.')
-      );
-
+    if (!email || !password) {
+      return res.status(400).render('login', {
+        title: 'Login',
+        message: 'Please fill all fields then try Again...!',
+      });
+    }
     // find user if registered or not
     const user = await prisma.user.findFirst({
       where: {
@@ -112,22 +116,18 @@ export const login = catchAsync(
       },
     });
     if (!user) {
-      return next(
-        new ErrorHandler(
-          404,
-          'Email or Password are not correct..!, Try Again!.'
-        )
-      );
+      return res.status(401).render('login', {
+        title: 'Login',
+        message: 'Email or Password are not correct..!, Try Again!',
+      });
     }
     // check if the password is correct or not
     const verifyPassword = await compare(password, user.password);
     if (!verifyPassword) {
-      return next(
-        new ErrorHandler(
-          401,
-          'Email or Password are not correct..!., Try Again!.'
-        )
-      );
+      return res.status(401).render('login', {
+        title: 'Login',
+        message: 'Email or Password are not correct..!, Try Again!',
+      });
     }
     // generate token with user id)
     const token = await generateToken(req, res, user.id);
@@ -159,7 +159,7 @@ export const loginWithGoogle = catchAsync(
     }
     // create a token using user id
     const token = await generateToken(req, res, user.id);
-    
+
     console.log(token);
 
     // redirect user to home page
@@ -288,12 +288,16 @@ export const isOnSession = catchAsync(
         },
       });
       if (user) {
-        res.status(200).redirect('/home');
+        return res.status(200).redirect('/home');
       } else {
-        next();
+        return res.status(200).render('home', {
+          title: 'Home',
+        });
       }
     } else {
-      next();
+      return res.status(200).render('home', {
+        title: 'Home',
+      });
     }
   }
 );
@@ -318,7 +322,9 @@ export const logout = catchAsync(
       expires: new Date(Date.now() + 10 * 1000),
       httpOnly: true,
     });
-    res.redirect('/');
+    res.status(200).render('home', {
+      title: 'Home',
+    });
   }
 );
 

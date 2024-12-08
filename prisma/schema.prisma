@@ -21,7 +21,7 @@ model User {
   password               String
   joinedDate             DateTime @default(now())
   resetPasswordUpdatedAt DateTime @updatedAt
-  resetPasswordToken     String   @default("")
+  resetPasswordToken     String   @default("patient")
   role                   String   @default("user")
   address                String?  @default("OAuth_Registeration")
   age                    String?  @default("OAuth_Registeration")

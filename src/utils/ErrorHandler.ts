@@ -1,7 +1,9 @@
+import { Request, Response, NextFunction } from 'express';
 import { IError } from '../interface/IError';
+import { catchAsync } from './catchAsync';
 
 export class ErrorHandler implements IError {
-  status: string ;
+  status: string;
   statusCode: number;
   message: string;
   name: string = 'Error';
@@ -12,3 +14,8 @@ export class ErrorHandler implements IError {
     Error.captureStackTrace(this, this.constructor);
   }
 }
+export const renderNotFoundErrorPage = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.status(404).render('error' ,{title:'Error 404'});
+  }
+);
