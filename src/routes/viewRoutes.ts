@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import {
-  renderLogin,
-  renderHome,
   renderView,
   renderUserReport,
   renderUserProfile,
@@ -12,6 +10,7 @@ import {
   isOnSession,
 } from '../controllers/authControllers';
 import {
+  predictBreastCancer,
   predictChestDiseaseFromInputImage,
   predictFromInputImage,
 } from '../controllers/modelControllers/modelController';
@@ -21,9 +20,9 @@ const viewRouter = Router();
 viewRouter.route('/login').get(renderView('login', 'Login'));
 viewRouter.route('/signup').get(renderView('signup', 'Singup'));
 
-viewRouter.route('/').get(isOnSession, renderHome);
+viewRouter.route('/').get(isOnSession, renderView('home', 'Home'));
 viewRouter.use(protect, isLoggedin);
-viewRouter.route('/home').get(renderHome);
+viewRouter.route('/home').get(renderView('home', 'Home'));
 viewRouter.route('/brain-tumor').get(renderView('model1', 'Brain Tumor'));
 viewRouter.route('/heart-disease').get(renderView('model2', 'Heart Disease'));
 viewRouter.route('/model3').get(renderView('model3', 'model3'));
@@ -45,4 +44,6 @@ viewRouter
     uploadInputImageFromUserToBePredicted,
     predictChestDiseaseFromInputImage
   );
+
+viewRouter.route('/predict-breast-cancer').post(predictBreastCancer);
 export default viewRouter;

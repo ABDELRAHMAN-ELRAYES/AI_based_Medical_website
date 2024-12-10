@@ -44,17 +44,177 @@ html(lang="en")
 
     // ========================================= End Nav Bar =========================================
 
-    h1(class="text-3xl text-center p-10 font-mono") Welcome To Model 3
-    section(class="py-14 font-mono bg-[#2b2e34]")
-      form(id="dropzone" class="w-2/3 max-700:w-11/12 max-600:w-full mx-auto bg-white p-2 border-2 border-dashed border-gray-300 rounded-lg shadow-sm hover:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2" action="/predict" method="POST")
-        // Image Container
-        div(class="h-96 bg-gray-300 relative rounded-xl")
-          input(type="file" name="image" accept="image/*" id="fileInput" class="absolute top-0 left-0 h-full w-full z-50 opacity-0 cursor-pointer" required)
-          div(id="placeholder" class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center text-center p-4")
-            img(src="/img/images/plus-icon.png" alt="your Image" class="w-24 h-24 object-cover mb-4")
-            p(class="mt-2 text-xl text-gray-600") Drag & drop your image here, or
-              span(class="text-blue-500 font-medium cursor-pointer") browse
-          div(id="previewContainer" class="hidden h-4/5")
-            img(alt="Uploaded Image" id="previewImage" class="h-full w-full object-contain rounded-md")
-        button(type="submit" class="my-8 mx-auto block text-xl w-full text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-3 rounded-md") Submit
+    h2(class="text-5xl font-semibold text-center text-blue-700 m-5") Breast Cancer Test
 
+    div(class="container mx-auto px-4 py-8")
+        form(class="p-6 flex content-between items-center" action="/predict-breast-cancer" method="POST")
+          //- Mean Values Section
+          div(class="mb-6 m-3")
+            h2(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Mean Values
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Radius Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="radius_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Texture Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="texture_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Perimeter Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="perimeter_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Area Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="area_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Smoothness Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="smoothness_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Compactness Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="compactness_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concavity Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concavity_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concave Points Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concave_points_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Symmetry Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="symmetry_mean" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Fractal Dimension Mean
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="fractal_dimension_mean" step="0.0001" required)
+
+          //- Standard Error (SE) Section
+          div(class="mb-6 m-3")
+            h2(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Standard Error Values
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Radius SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="radius_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Texture SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="texture_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Perimeter SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="perimeter_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Area SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="area_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Smoothness SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="smoothness_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Compactness SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="compactness_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concavity SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concavity_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concave Points SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concave_points_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Symmetry SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="symmetry_se" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Fractal Dimension SE
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="fractal_dimension_se" step="0.0001" required)
+
+          //- Worst Values Section
+          div(class="mb-6 m-3")
+            h2(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Worst Values
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Radius Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="radius_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Texture Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="texture_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Perimeter Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="perimeter_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Area Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="area_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Smoothness Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="smoothness_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Compactness Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="compactness_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concavity Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concavity_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Concave Points Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="concave_points_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Symmetry Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="symmetry_worst" step="0.0001" required)
+
+              div(class="space-y-3")
+                label(class="block")
+                  span(class="text-sm font-medium text-gray-700") Fractal Dimension Worst
+                  input(class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="number" name="fractal_dimension_worst" step="0.0001" required)
+
+          //- Submit Button
+          div(class="mt-6")
+            button(
+              class="w-[150px] h-[50px] bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+              type="submit"
+            ) Get Result
+
+          //- Result Section

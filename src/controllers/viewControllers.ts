@@ -4,14 +4,6 @@ import { hash, compare } from '../utils/SecurityUtils';
 import { Request, Response, NextFunction } from 'express';
 const prisma = new PrismaClient();
 
-export const renderHome = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).render('home', {
-      title: 'Home',
-    });
-  }
-);
-
 export const renderView = (viewName: string, title: string) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).render(viewName, {
@@ -19,14 +11,6 @@ export const renderView = (viewName: string, title: string) => {
     });
   });
 };
-
-export const renderLogin = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).render('login', {
-      title: 'Login',
-    });
-  }
-);
 export const renderUserReport = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const predictionId = req.params.predictionId as string;

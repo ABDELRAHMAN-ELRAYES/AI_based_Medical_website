@@ -15,7 +15,6 @@ import googleRouter from './routes/googleRoutes';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { renderNotFoundErrorPage } from './utils/ErrorHandler';
 
-
 const app = express();
 
 // integrate with gemini
@@ -24,11 +23,11 @@ export const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 //! load AI Brain Tumor onnx model
 const brainTumorModelPath = process.env.BRAIN_TUMOR_MODEL_PATH as string;
-export let brainTurmoSession: ort.InferenceSession;
+export let brainTumorSession: ort.InferenceSession;
 
 ort.InferenceSession.create(brainTumorModelPath)
   .then((s) => {
-    brainTurmoSession = s;
+    brainTumorSession = s;
     console.log('Brain Tumor ONNX model loaded!');
   })
   .catch((err) => {
@@ -46,6 +45,19 @@ ort.InferenceSession.create(chestXRayModelPath)
   })
   .catch((err) => {
     console.error('Failed to load Chest X Ray model:', err);
+  });
+
+//! load AI Breast Cancer onnx model
+const breastCancerModelPath = process.env.BREAST_CANCER_MODEL_PATH as string;
+export let breastCancerSession: ort.InferenceSession;
+
+ort.InferenceSession.create(breastCancerModelPath)
+  .then((s) => {
+    breastCancerSession = s;
+    console.log('Breast Cancer ONNX model loaded!');
+  })
+  .catch((err) => {
+    console.error('Failed to load Breast Cancer model:', err);
   });
 
 // using middlewares
