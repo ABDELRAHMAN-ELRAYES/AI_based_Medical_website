@@ -13,6 +13,7 @@ import {
   predictBreastCancer,
   predictChestDiseaseFromInputImage,
   predictFromInputImage,
+  predictHeartDisease,
 } from '../controllers/modelControllers/modelController';
 import { uploadInputImageFromUserToBePredicted } from '../middleware/middlewares';
 const viewRouter = Router();
@@ -24,9 +25,9 @@ viewRouter.route('/').get(isOnSession, renderView('home', 'Home'));
 viewRouter.use(protect, isLoggedin);
 viewRouter.route('/home').get(renderView('home', 'Home'));
 viewRouter.route('/brain-tumor').get(renderView('model1', 'Brain Tumor'));
-viewRouter.route('/heart-disease').get(renderView('model2', 'Heart Disease'));
-viewRouter.route('/model3').get(renderView('model3', 'model3'));
-viewRouter.route('/model4').get(renderView('model4', 'model4'));
+viewRouter.route('/chest-x-ray').get(renderView('model2', 'Chest X Ray'));
+viewRouter.route('/breast-cancer').get(renderView('model3', 'Breast Cancer'));
+viewRouter.route('/heart-disease').get(renderView('model4', 'Heart Disease'));
 
 // viewRouter.route('/profile').get(renderView('profile', 'Profile'));
 
@@ -46,4 +47,6 @@ viewRouter
   );
 
 viewRouter.route('/predict-breast-cancer').post(predictBreastCancer);
+viewRouter.route('/predict-heart-disease').post(predictHeartDisease);
+
 export default viewRouter;

@@ -44,17 +44,164 @@ html(lang="en")
 
     // ========================================= End Nav Bar =========================================
 
-    h1(class="text-3xl text-center p-10 font-mono") Welcome To Model 1
-    section(class="py-14 font-mono bg-[#2b2e34]")
-      form(id="dropzone" class="w-2/3 max-700:w-11/12 max-600:w-full mx-auto bg-white p-2 border-2 border-dashed border-gray-300 rounded-lg shadow-sm hover:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2" action="/predict" method="POST")
-        // Image Container
-        div(class="h-96 bg-gray-300 relative rounded-xl")
-          input(type="file" name="image" accept="image/*" id="fileInput" class="absolute top-0 left-0 h-full w-full z-50 opacity-0 cursor-pointer" required)
-          div(id="placeholder" class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center text-center p-4")
-            img(src="/img/images/plus-icon.png" alt="your Image" class="w-24 h-24 object-cover mb-4")
-            p(class="mt-2 text-xl text-gray-600") Drag & drop your image here, or
-              span(class="text-blue-500 font-medium cursor-pointer") browse
-          div(id="previewContainer" class="hidden h-4/5")
-            img(alt="Uploaded Image" id="previewImage" class="h-full w-full object-contain rounded-md")
-        button(type="submit" class="my-8 mx-auto block text-xl w-full text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-3 rounded-md") Submit
+    h2(class="text-5xl font-semibold text-center text-blue-700 m-5") Heart Disease Test
+    section(class="grid content-center justify-center mx-auto p-6 bg-white rounded-lg shadow-md")
+      form(class="space-y-6 w-[60rem]" action="/predict-heart-disease" method="POST")
+        div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
 
+          // Age Input
+          div(class="space-y-2")
+            label(for="age" class="block text-sm font-medium text-gray-700") Age
+            input(
+              type="number"
+              id="age"
+              name="age"
+              value="45"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+
+          // Sex Input
+          div(class="space-y-2")
+            label(for="sex" class="block text-sm font-medium text-gray-700") Sex
+            select(
+              id="sex"
+              name="sex"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="1") Male
+              option(value="0") Female
+
+          // Chest Pain Type
+          div(class="space-y-2")
+            label(for="chestPainType" class="block text-sm font-medium text-gray-700") Chest Pain Type
+            select(
+              id="chestPainType"
+              name="chestPainType"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") Typical Angina
+              option(value="1") Atypical Angina
+              option(value="2") Non-Anginal Pain
+              option(value="3") Asymptomatic
+
+          // Resting Blood Pressure
+          div(class="space-y-2")
+            label(for="restingBP" class="block text-sm font-medium text-gray-700") Resting Blood Pressure
+            input(
+              type="number"
+              id="restingBP"
+              name="restingBP"
+              value="120"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+
+          // Cholesterol
+          div(class="space-y-2")
+            label(for="cholesterol" class="block text-sm font-medium text-gray-700") Cholesterol
+            input(
+              type="number"
+              id="cholesterol"
+              name="cholesterol"
+              value="250"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+
+          // Fasting Blood Sugar
+          div(class="space-y-2")
+            label(for="fastingBS" class="block text-sm font-medium text-gray-700") Fasting Blood Sugar
+            select(
+              id="fastingBS"
+              name="fastingBS"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") < 120 mg/dl
+              option(value="1") > 120 mg/dl
+
+          // Resting ECG
+          div(class="space-y-2")
+            label(for="restingECG" class="block text-sm font-medium text-gray-700") Resting ECG
+            select(
+              id="restingECG"
+              name="restingECG"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") Normal
+              option(value="1") ST-T Wave Abnormality
+              option(value="2") Left Ventricular Hypertrophy
+
+          // Max Heart Rate
+          div(class="space-y-2")
+            label(for="maxHR" class="block text-sm font-medium text-gray-700") Max Heart Rate
+            input(
+              type="number"
+              id="maxHR"
+              name="maxHR"
+              value="150"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+
+          // Exercise Angina
+          div(class="space-y-2")
+            label(for="exerciseAngina" class="block text-sm font-medium text-gray-700") Exercise Angina
+            select(
+              id="exerciseAngina"
+              name="exerciseAngina"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") No
+              option(value="1") Yes
+
+          // ST Depression (Oldpeak)
+          div(class="space-y-2")
+            label(for="oldpeak" class="block text-sm font-medium text-gray-700") ST Depression
+            input(
+              type="number"
+              step="0.1"
+              id="oldpeak"
+              name="oldpeak"
+              value="1.5"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+
+          // ST Slope
+          div(class="space-y-2")
+            label(for="stSlope" class="block text-sm font-medium text-gray-700") ST Slope
+            select(
+              id="stSlope"
+              name="stSlope"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") Upsloping
+              option(value="1") Flat
+              option(value="2") Downsloping
+
+          // Number of Major Vessels
+          div(class="space-y-2")
+            label(for="numMajorVessels" class="block text-sm font-medium text-gray-700") Number of Major Vessels
+            select(
+              id="numMajorVessels"
+              name="numMajorVessels"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="0") 0
+              option(value="1") 1
+              option(value="2") 2
+              option(value="3") 3
+
+          // Thalassemia
+          div(class="space-y-2")
+            label(for="thal" class="block text-sm font-medium text-gray-700") Thalassemia
+            select(
+              id="thal"
+              name="thal"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            )
+              option(value="1") Normal
+              option(value="2") Fixed Defect
+              option(value="3") Reversible Defect
+
+        div(class="mt-6 flex justify-center")
+          button(
+            type="submit"
+            class="px-8 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
+          ) Get Result
