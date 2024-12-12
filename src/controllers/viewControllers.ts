@@ -41,3 +41,13 @@ export const renderUserProfile = catchAsync(
     });
   }
 );
+export const renderResetPasswordForm = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = (req.params.token as string).slice(1);
+    console.log(token);
+    res.render('resetPassword', {
+      title: 'Send Password',
+      token,
+    });
+  }
+);

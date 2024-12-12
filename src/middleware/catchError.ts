@@ -16,4 +16,7 @@ export const catchErrorMiddleware = (
     message: error.message,
     location: error.stack,
   });
+  // res.status(200).render('viewError',{
+  //   title:'Error'
+  // })
 };

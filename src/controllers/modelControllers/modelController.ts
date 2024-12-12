@@ -11,7 +11,6 @@ import { getGeminiResponse } from '../../utils/gemini';
 import { PrismaClient } from '@prisma/client';
 import { ErrorHandler } from '../../utils/ErrorHandler';
 import * as ort from 'onnxruntime-node';
-import * as onnx from 'onnxruntime-node';
 import {
   BreastCancerFeatures,
   featureNames,
@@ -243,6 +242,7 @@ const heart_disease_example_data: IHeartDiseaseFeatures = {
 
 export const predictHeartDisease = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+
     // check if there are any missing needed input feattures
     const missingFeatures = heartDiseaseFeatureNames.filter(
       (feature) => !(feature in heart_disease_example_data)
@@ -253,14 +253,16 @@ export const predictHeartDisease = catchAsync(
 
     // prepare input data
     const inputArray = new Float32Array(
-      heartDiseaseFeatureNames.map((name) => heart_disease_example_data[name])
+      heartDiseaseFeatureNames.map(
+        (name) => heart_disease_example_data[name] + 0.0
+      )
     );
 
     // construct the input as tensor
     const inputTensor: ort.Tensor = {
+      type: 'float32',
       data: inputArray,
       dims: [1, heartDiseaseFeatureNames.length],
-      type: 'float32',
     };
 
     // run inference
@@ -270,9 +272,10 @@ export const predictHeartDisease = catchAsync(
 
     const results = await heartDiseaseSession.run(feeds);
 
-    // Get prediction result
+
+    // get prediction result
     const probabilities = results[heartDiseaseSession.outputNames[0]]
-      .data as Float32Array;
+      .data as any;
     const predictedClass = probabilities.indexOf(Math.max(...probabilities));
 
     const currentUserId = req.user?.id as string;

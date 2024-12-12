@@ -10,6 +10,7 @@ import { IToken } from '../interface/IVerifyToken';
 import { IUser } from '../interface/IUser';
 import { IGoogleUser } from '../interface/IGoogleUser';
 import { IData } from '../interface/IUserData';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -316,6 +317,7 @@ export const restrictTo = (...role: string[]) => {
     next();
   };
 };
+// logout user from the current session
 export const logout = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     res.cookie('jwt', 'loggedout', {
@@ -329,9 +331,70 @@ export const logout = catchAsync(
 );
 
 export const forgetPassword = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    const email = req.body.email as string;
+
+    // get the user by its email
+    const user = await prisma.user.findFirst({ where: { email } });
+    if (!user) {
+      return next(
+        new ErrorHandler(401, 'User with entered email is not found!.')
+      );
+    }
+    // create a random hashed token to verify user by it
+    const token = await bcrypt.hash(email, 12);
+
+    // store the hashed token
+    const updatedUser = await prisma.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        resetPasswordToken: token,
+      },
+    });
+
+    //form the options of the email
+    emailOptions.to = user.email;
+    emailOptions.text = `use this url to reset your password http://127.0.0.1:3000/reset-password/:${token} , Please make sure to never share this link with any one ,You have only 10 minutes to reset your password..!`;
+    emailOptions.html = `<p>use this url to reset your password <a="http://127.0.0.1:3000/reset-password/:${token}">http://127.0.0.1:3000/reset-password/:${token}</a> , Please make sure to never share this link with any one ,You have only 10 minutes to reset your password..!</p>`;
+
+    // send email to the user gmail
+    await sendEmail(transporter, emailOptions);
+
+    res.status(200).render('checkEmail', {
+      title: 'Email Sent',
+    });
+  }
 );
 
 export const resetPassword = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {}
+  async (req: Request, res: Response, next: NextFunction) => {
+    // get the hashed user from the form
+    const token = req.body.token as string;
+
+    // get the user by the hashed token
+    const user = await prisma.user.findFirst({
+      where: { resetPasswordToken: token },
+    });
+
+    console.log(user);
+
+    if (!user) {
+      return next(
+        new ErrorHandler(400, 'This Reset Password Token is not correct!1')
+      );
+    }
+    // hashing password before updating it
+    const hashedPassword = await hash(req.body.password as string);
+
+    // reset the user password
+    const updatedUserPassword = await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashedPassword, resetPasswordToken: 'null' },
+    });
+
+    // redirect user to login using his new password
+    res.redirect('/login');
+  }
 );

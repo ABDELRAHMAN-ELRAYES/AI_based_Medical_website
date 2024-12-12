@@ -47,158 +47,158 @@ html(lang="en")
     h2(class="text-5xl font-semibold text-center text-blue-700 m-5") Heart Disease Test
     section(class="grid content-center justify-center mx-auto p-6 bg-white rounded-lg shadow-md")
       form(class="space-y-6 w-[60rem]" action="/predict-heart-disease" method="POST")
-        div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
+        //- div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
 
-          // Age Input
-          div(class="space-y-2")
-            label(for="age" class="block text-sm font-medium text-gray-700") Age
-            input(
-              type="number"
-              id="age"
-              name="age"
-              value="45"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
+        //-   // Age Input
+        //-   div(class="space-y-2")
+        //-     label(for="age" class="block text-sm font-medium text-gray-700") Age
+        //-     input(
+        //-       type="number"
+        //-       id="age"
+        //-       name="age"
+        //-       value="45"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
 
-          // Sex Input
-          div(class="space-y-2")
-            label(for="sex" class="block text-sm font-medium text-gray-700") Sex
-            select(
-              id="sex"
-              name="sex"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="1") Male
-              option(value="0") Female
+        //-   // Sex Input
+        //-   div(class="space-y-2")
+        //-     label(for="sex" class="block text-sm font-medium text-gray-700") Sex
+        //-     select(
+        //-       id="sex"
+        //-       name="sex"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="1") Male
+        //-       option(value="0") Female
 
-          // Chest Pain Type
-          div(class="space-y-2")
-            label(for="chestPainType" class="block text-sm font-medium text-gray-700") Chest Pain Type
-            select(
-              id="chestPainType"
-              name="chestPainType"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") Typical Angina
-              option(value="1") Atypical Angina
-              option(value="2") Non-Anginal Pain
-              option(value="3") Asymptomatic
+        //-   // Chest Pain Type
+        //-   div(class="space-y-2")
+        //-     label(for="chestPainType" class="block text-sm font-medium text-gray-700") Chest Pain Type
+        //-     select(
+        //-       id="chestPainType"
+        //-       name="chestPainType"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") Typical Angina
+        //-       option(value="1") Atypical Angina
+        //-       option(value="2") Non-Anginal Pain
+        //-       option(value="3") Asymptomatic
 
-          // Resting Blood Pressure
-          div(class="space-y-2")
-            label(for="restingBP" class="block text-sm font-medium text-gray-700") Resting Blood Pressure
-            input(
-              type="number"
-              id="restingBP"
-              name="restingBP"
-              value="120"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
+        //-   // Resting Blood Pressure
+        //-   div(class="space-y-2")
+        //-     label(for="restingBP" class="block text-sm font-medium text-gray-700") Resting Blood Pressure
+        //-     input(
+        //-       type="number"
+        //-       id="restingBP"
+        //-       name="restingBP"
+        //-       value="120"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
 
-          // Cholesterol
-          div(class="space-y-2")
-            label(for="cholesterol" class="block text-sm font-medium text-gray-700") Cholesterol
-            input(
-              type="number"
-              id="cholesterol"
-              name="cholesterol"
-              value="250"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
+        //-   // Cholesterol
+        //-   div(class="space-y-2")
+        //-     label(for="cholesterol" class="block text-sm font-medium text-gray-700") Cholesterol
+        //-     input(
+        //-       type="number"
+        //-       id="cholesterol"
+        //-       name="cholesterol"
+        //-       value="250"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
 
-          // Fasting Blood Sugar
-          div(class="space-y-2")
-            label(for="fastingBS" class="block text-sm font-medium text-gray-700") Fasting Blood Sugar
-            select(
-              id="fastingBS"
-              name="fastingBS"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") < 120 mg/dl
-              option(value="1") > 120 mg/dl
+        //-   // Fasting Blood Sugar
+        //-   div(class="space-y-2")
+        //-     label(for="fastingBS" class="block text-sm font-medium text-gray-700") Fasting Blood Sugar
+        //-     select(
+        //-       id="fastingBS"
+        //-       name="fastingBS"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") < 120 mg/dl
+        //-       option(value="1") > 120 mg/dl
 
-          // Resting ECG
-          div(class="space-y-2")
-            label(for="restingECG" class="block text-sm font-medium text-gray-700") Resting ECG
-            select(
-              id="restingECG"
-              name="restingECG"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") Normal
-              option(value="1") ST-T Wave Abnormality
-              option(value="2") Left Ventricular Hypertrophy
+        //-   // Resting ECG
+        //-   div(class="space-y-2")
+        //-     label(for="restingECG" class="block text-sm font-medium text-gray-700") Resting ECG
+        //-     select(
+        //-       id="restingECG"
+        //-       name="restingECG"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") Normal
+        //-       option(value="1") ST-T Wave Abnormality
+        //-       option(value="2") Left Ventricular Hypertrophy
 
-          // Max Heart Rate
-          div(class="space-y-2")
-            label(for="maxHR" class="block text-sm font-medium text-gray-700") Max Heart Rate
-            input(
-              type="number"
-              id="maxHR"
-              name="maxHR"
-              value="150"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
+        //-   // Max Heart Rate
+        //-   div(class="space-y-2")
+        //-     label(for="maxHR" class="block text-sm font-medium text-gray-700") Max Heart Rate
+        //-     input(
+        //-       type="number"
+        //-       id="maxHR"
+        //-       name="maxHR"
+        //-       value="150"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
 
-          // Exercise Angina
-          div(class="space-y-2")
-            label(for="exerciseAngina" class="block text-sm font-medium text-gray-700") Exercise Angina
-            select(
-              id="exerciseAngina"
-              name="exerciseAngina"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") No
-              option(value="1") Yes
+        //-   // Exercise Angina
+        //-   div(class="space-y-2")
+        //-     label(for="exerciseAngina" class="block text-sm font-medium text-gray-700") Exercise Angina
+        //-     select(
+        //-       id="exerciseAngina"
+        //-       name="exerciseAngina"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") No
+        //-       option(value="1") Yes
 
-          // ST Depression (Oldpeak)
-          div(class="space-y-2")
-            label(for="oldpeak" class="block text-sm font-medium text-gray-700") ST Depression
-            input(
-              type="number"
-              step="0.1"
-              id="oldpeak"
-              name="oldpeak"
-              value="1.5"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
+        //-   // ST Depression (Oldpeak)
+        //-   div(class="space-y-2")
+        //-     label(for="oldpeak" class="block text-sm font-medium text-gray-700") ST Depression
+        //-     input(
+        //-       type="number"
+        //-       step="0.1"
+        //-       id="oldpeak"
+        //-       name="oldpeak"
+        //-       value="1.5"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
 
-          // ST Slope
-          div(class="space-y-2")
-            label(for="stSlope" class="block text-sm font-medium text-gray-700") ST Slope
-            select(
-              id="stSlope"
-              name="stSlope"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") Upsloping
-              option(value="1") Flat
-              option(value="2") Downsloping
+        //-   // ST Slope
+        //-   div(class="space-y-2")
+        //-     label(for="stSlope" class="block text-sm font-medium text-gray-700") ST Slope
+        //-     select(
+        //-       id="stSlope"
+        //-       name="stSlope"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") Upsloping
+        //-       option(value="1") Flat
+        //-       option(value="2") Downsloping
 
-          // Number of Major Vessels
-          div(class="space-y-2")
-            label(for="numMajorVessels" class="block text-sm font-medium text-gray-700") Number of Major Vessels
-            select(
-              id="numMajorVessels"
-              name="numMajorVessels"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="0") 0
-              option(value="1") 1
-              option(value="2") 2
-              option(value="3") 3
+        //-   // Number of Major Vessels
+        //-   div(class="space-y-2")
+        //-     label(for="numMajorVessels" class="block text-sm font-medium text-gray-700") Number of Major Vessels
+        //-     select(
+        //-       id="numMajorVessels"
+        //-       name="numMajorVessels"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="0") 0
+        //-       option(value="1") 1
+        //-       option(value="2") 2
+        //-       option(value="3") 3
 
-          // Thalassemia
-          div(class="space-y-2")
-            label(for="thal" class="block text-sm font-medium text-gray-700") Thalassemia
-            select(
-              id="thal"
-              name="thal"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            )
-              option(value="1") Normal
-              option(value="2") Fixed Defect
-              option(value="3") Reversible Defect
+        //-   // Thalassemia
+        //-   div(class="space-y-2")
+        //-     label(for="thal" class="block text-sm font-medium text-gray-700") Thalassemia
+        //-     select(
+        //-       id="thal"
+        //-       name="thal"
+        //-       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        //-     )
+        //-       option(value="1") Normal
+        //-       option(value="2") Fixed Defect
+        //-       option(value="3") Reversible Defect
 
         div(class="mt-6 flex justify-center")
           button(

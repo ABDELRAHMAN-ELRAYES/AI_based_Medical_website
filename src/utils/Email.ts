@@ -12,7 +12,7 @@ export const transporter = nodemailer.createTransport({
 export const emailOptions = {
   from: process.env.COMPANY_GMAIL, // sender address
   to: 'default',
-  subject: 'Travgo | Reset password ✔',
+  subject: 'IYA MED | Reset password ✔',
   text: 'hello world?',
   html: '<b>Hello world?</b>',
 };

@@ -88,9 +88,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // mounting routers
-app.use('/auth/google', googleRouter);
-app.use('/users', userRouter);
 app.use('/', viewRouter);
+app.use('/users', userRouter);
+app.use('/auth/google', googleRouter);
 app.use('*', renderNotFoundErrorPage);
 
 // Global Error Handling
