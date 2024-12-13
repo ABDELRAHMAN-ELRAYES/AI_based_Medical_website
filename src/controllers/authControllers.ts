@@ -74,6 +74,7 @@ export const signup = catchAsync(
       age: req.body.age,
       address: req.body.address,
       role,
+      resetPasswordUpdatedAt: new Date(),
     };
 
     if (role === 'doctor') {
@@ -320,9 +321,11 @@ export const restrictTo = (...role: string[]) => {
 // logout user from the current session
 export const logout = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.cookie('jwt', 'loggedout', {
-      expires: new Date(Date.now() + 10 * 1000),
+    res.clearCookie('jwt', {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/',
     });
     res.status(200).render('home', {
       title: 'Home',
@@ -396,5 +399,25 @@ export const resetPassword = catchAsync(
 
     // redirect user to login using his new password
     res.redirect('/login');
+  }
+);
+
+// check if the user input relative email before enter to models
+export const checkIfHaveRelativeEmail = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // get the user from req
+    const user = await prisma.user.findFirst({
+      where: {
+        id: req.user?.id as string,
+      },
+    });
+
+    // if the current user doesn't have a relative email force him to enter one
+    if (!user?.relativeEmail) {
+      return res.status(400).render('inputRelativeEmail', {
+        title: 'Enter Relative Email',
+      });
+    }
+    next();
   }
 );

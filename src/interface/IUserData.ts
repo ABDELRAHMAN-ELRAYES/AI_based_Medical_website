@@ -9,4 +9,5 @@ export interface IData {
   phone?: string;
   idVerificationImg?: string;
   address: string;
+  resetPasswordUpdatedAt:Date
 }

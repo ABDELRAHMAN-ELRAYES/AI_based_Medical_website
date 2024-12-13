@@ -11,12 +11,14 @@ export const catchErrorMiddleware = (
   error.status = error.status || 'Error';
   error.statusCode = error.statusCode || 500;
 
-  res.status(Number(error.statusCode)).json({
-    status: error.status,
-    message: error.message,
-    location: error.stack,
+  // res.status(Number(error.statusCode)).json({
+  //   status: error.status,
+  //   message: error.message,
+  //   location: error.stack,
+  // });
+  res.status(200).render('viewError', {
+    title: 'Error',
+    statusCode: error.statusCode,
+    errorMessage: error.message,
   });
-  // res.status(200).render('viewError',{
-  //   title:'Error'
-  // })
 };

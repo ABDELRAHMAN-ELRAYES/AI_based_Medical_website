@@ -27,22 +27,8 @@ export const getUser = catchAsync(
 export const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     // hashing password before storing it in DataBase
-    const password = await hash(req.body.password);
-  
-
-    const data = {
-      name: req.body.name,
-      username: req.body.username,
-      email: req.body.email,
-      password,
-      // resetPasswordToken: req.body.resetPasswordToken,
-      // profilePicture: req.body.profilePicture,
-      // profileCover: req.body.profileCover,
-      // bio: req.body.bio,
-      phoneNumber: req.body.phoneNumber,
-      birthDate: new Date(req.body.birthDate),
-    };
-    const user = await prisma.user.create({
+    const data = req.body;
+    const user = await prisma.user.createMany({
       data,
     });
     res.status(201).json({
@@ -74,5 +60,22 @@ export const deleteUser = catchAsync(
     res.status(204).json({
       user,
     });
+  }
+);
+// adding a relative email for current user
+export const addRelativeEmail = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const relativeEmail = req.body.email;
+    // update the user with relative email
+    const user = await prisma.user.update({
+      where: {
+        id: req.user?.id as string,
+      },
+      data: {
+        relativeEmail:relativeEmail,
+      },
+    });
+
+    res.status(200).redirect('/home#models');
   }
 );

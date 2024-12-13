@@ -22,9 +22,15 @@ export const renderUserReport = catchAsync(
         user: true,
       },
     });
+    const doctors = await prisma.user.findMany({
+      where: {
+        title: predictionResult?.modelName as string,
+      },
+    });
     res.status(200).render('report', {
       title: 'Report',
       prediction: predictionResult,
+      doctors
     });
   }
 );
@@ -44,7 +50,7 @@ export const renderUserProfile = catchAsync(
 export const renderResetPasswordForm = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const token = (req.params.token as string).slice(1);
-    console.log(token);
+    
     res.render('resetPassword', {
       title: 'Send Password',
       token,

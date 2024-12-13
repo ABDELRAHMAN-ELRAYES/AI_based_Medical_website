@@ -10,6 +10,7 @@ html(lang="en")
     script(src="/js/report.js" defer)
     script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js" defer)
     script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer)
+    link(rel="stylesheet", href="https://site-assets.fontawesome.com/releases/v6.7.1/css/all.css")
   body
     // Nav Bar
     nav(class="flex justify-between h-20 shadow-xl")
@@ -37,7 +38,7 @@ html(lang="en")
     // End Nav Bar
 
     // Start Report Section
-    h1(class="text-center font-mono text-3xl font-semibold mt-10 mb-7") Report
+    h2(class="text-5xl font-semibold text-center text-blue-700 mt-[5rem] mb-[5rem]") Report
     section(class="w-3/4 mx-auto")
       div(id="reportContainer" class="w-full p-4 bg-white rounded-lg shadow-2xl")
         h1(class="text-2xl font-semibold text-gray-700 mb-4") Prediction Result
@@ -53,23 +54,30 @@ html(lang="en")
             p(class="text-center text-gray-700") Advice:
             blockquote(class="text-center text-gray-500") #{prediction.tips}
           button( id="downloadPdfButton" class="m-3 inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition-colors duration-200") Download as PDF
-
-
-    // Some Recommended Doctors
-    //- section(class="bg-gray-200 p-12 mt-14")
-    //-   h1(class="text-center font-mono text-4xl font-semibold mb-8") Recommended Doctors
-    //-   section(class="grid grid-cols-4 gap-8 max-1200:grid-cols-3 max-900:grid-cols-2 max-600:grid-cols-1")
-    //-     each doctor in doctors
-    //-       .flex.flex-col.bg-white.shadow-2xl.rounded-lg
-    //-         div(class="h-56 m-2.5 overflow-hidden text-white rounded-md")
-    //-           img(src=doctor.image class="w-full h-full object-cover object-top" alt="card-image")
-    //-         div(class="p-4")
-    //-           h6(class="mb-2 text-slate-800 text-2xl font-semibold") #{doctor.name}
-    //-           p(class="text-slate-700 leading-normal text-xl font-light") #{doctor.description}
-    //-           p(class="my-1 text-slate-700 text-xl")
-    //-             span(class="text-black font-semibold") Phone: #{doctor.phone}
-    //-           p(class="my-1 text-slate-700 text-xl")
-    //-             span(class="text-black font-semibold") Email: #{doctor.email}
-    //-           span(class="mt-4 inline-block #{doctor.categoryColor} font-semibold rounded-lg py-2 px-4") #{doctor.category}
-
-
+    
+    h2(class="text-5xl font-semibold text-center text-blue-700 mt-[10rem] mb-[5rem]") Recommended Doctors
+    section(class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mr-[10rem] ml-[10rem]")
+      each doctor in doctors
+        div(class="bg-white shadow-lg rounded-lg p-6 border border-gray-200")
+          div(class="flex items-center justify-between")
+            h2(class="text-2xl font-semibold bg-blue-200")= doctor.name
+            span(class="text-sm text-gray-600 bg-blue-200 rounded-full px-2 py-1")= doctor.role
+          p(class="text-gray-600 mt-2") 
+            strong Email: 
+            span= doctor.email
+          p(class="text-gray-600 mt-2")
+            strong Phone: 
+            span= doctor.phone
+          p(class="text-gray-600 mt-2")
+            strong Title: 
+            span= doctor.title
+          p(class="text-gray-600 mt-2")
+            strong Age: 
+            span= doctor.age
+          p(class="text-gray-600 mt-2")
+            strong Address: 
+            span= doctor.address
+          div(class="flex items-center mt-4")
+            span(class="text-yellow-500 mr-2") 
+              i(class="fas fa-star")
+            span(class="text-gray-800 font-bold")= doctor.rating

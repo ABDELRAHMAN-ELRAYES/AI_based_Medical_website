@@ -9,6 +9,7 @@ import {
   protect,
   isLoggedin,
   isOnSession,
+  checkIfHaveRelativeEmail,
 } from '../controllers/authControllers';
 import {
   predictBreastCancer,
@@ -31,20 +32,40 @@ viewRouter.route('/').get(isOnSession, renderView('home', 'Home'));
 viewRouter.route('/home').get(protect, isLoggedin, renderView('home', 'Home'));
 viewRouter
   .route('/brain-tumor')
-  .get(protect, isLoggedin, renderView('model1', 'Brain Tumor'));
+  .get(
+    protect,
+    isLoggedin,
+    checkIfHaveRelativeEmail,
+    renderView('model1', 'Brain Tumor')
+  );
 viewRouter
   .route('/chest-x-ray')
-  .get(protect, isLoggedin, renderView('model2', 'Chest X Ray'));
+  .get(
+    protect,
+    isLoggedin,
+    checkIfHaveRelativeEmail,
+    renderView('model2', 'Chest X Ray')
+  );
 viewRouter
   .route('/breast-cancer')
-  .get(protect, isLoggedin, renderView('model3', 'Breast Cancer'));
+  .get(
+    protect,
+    isLoggedin,
+    checkIfHaveRelativeEmail,
+    renderView('model3', 'Breast Cancer')
+  );
 viewRouter
   .route('/heart-disease')
-  .get(protect, isLoggedin, renderView('model4', 'Heart Disease'));
+  .get(
+    protect,
+    isLoggedin,
+    checkIfHaveRelativeEmail,
+    renderView('model4', 'Heart Disease')
+  );
 
 // viewRouter.route('/profile').get(protect, isLoggedin,renderView('profile', 'Profile'));
 
-viewRouter.route('/profile').get(protect, isLoggedin,renderUserProfile);
+viewRouter.route('/profile').get(protect, isLoggedin, renderUserProfile);
 viewRouter.get('/report', protect, isLoggedin, renderView('report', 'Report'));
 viewRouter.get('/:predictionId/report', protect, isLoggedin, renderUserReport);
 

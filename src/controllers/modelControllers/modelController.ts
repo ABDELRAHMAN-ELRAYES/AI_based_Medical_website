@@ -19,6 +19,7 @@ import {
   heartDiseaseFeatureNames,
   IHeartDiseaseFeatures,
 } from '../../interface/IHeartDiseaseModel';
+import { sendEmailBasedOnPredictionResult } from '../../utils/sendEmailFromPrediction';
 
 const prisma = new PrismaClient();
 
@@ -51,6 +52,27 @@ export const predictFromInputImage = catchAsync(
       const healthStatus =
         predictionResult <= 0.5 ? 'Healthy' : 'Tumor Detected';
 
+      const user = await prisma.user.findFirst({
+        where: {
+          id: currentUserId,
+        },
+      });
+      // sending email for the relative if the patient test was not health
+      const modelName = (req.body.modelName as string).replace(
+        'Specialist',
+        ''
+      );
+      const userRelativeEmail = user?.relativeEmail as string;
+      const userFullName = user?.name as string;
+
+      if (healthStatus !== 'Healthy') {
+        await sendEmailBasedOnPredictionResult(
+          modelName,
+          userRelativeEmail,
+          userFullName
+        )(req, res, next);
+      }
+
       const geminiPrompt =
         healthStatus === 'Healthy'
           ? 'Provide advice on how to stay healthy and avoid tumors.'
@@ -60,7 +82,7 @@ export const predictFromInputImage = catchAsync(
 
       // store the prediciton result to database
       const data = {
-        modelName: req.body.modelName,
+        modelName,
         userId: currentUserId,
         result: healthStatus,
         resultInNumbers: predictionResult.toString(),
@@ -104,10 +126,31 @@ export const predictChestDiseaseFromInputImage = catchAsync(
       const predictionResult = Array.from(outputData)[0];
       const currentUserId = req.user?.id as string;
 
-      // get a response from gemini based on the provided prediction result
       const healthStatus =
         predictionResult <= 0.5 ? 'Healthy' : 'Chest X Ray Disease';
 
+      const user = await prisma.user.findFirst({
+        where: {
+          id: currentUserId,
+        },
+      });
+      // sending email for the relative if the patient test was not health
+      const modelName = (req.body.modelName as string).replace(
+        'Specialist',
+        ''
+      );
+      const userRelativeEmail = user?.relativeEmail as string;
+      const userFullName = user?.name as string;
+
+      if (healthStatus !== 'Healthy') {
+        await sendEmailBasedOnPredictionResult(
+          modelName,
+          userRelativeEmail,
+          userFullName
+        );
+      }
+
+      // get a response from gemini based on the provided prediction result
       const geminiPrompt =
         healthStatus === 'Healthy'
           ? 'Provide advice on how to stay healthy and avoid chest disease'
@@ -206,6 +249,27 @@ export const predictBreastCancer = catchAsync(
       // get a response from gemini based on the provided prediction result
       const healthStatus = predictedClass !== 1 ? 'Healthy' : 'Infected';
 
+      // sending email for the relative if the patient test was not health
+      const modelName = (req.body.modelName as string).replace(
+        'Specialist',
+        ''
+      );
+      const user = await prisma.user.findFirst({
+        where: {
+          id: currentUserId,
+        },
+      });
+      const userRelativeEmail = user?.relativeEmail as string;
+      const userFullName = user?.name as string;
+
+      if (healthStatus !== 'Healthy') {
+        await sendEmailBasedOnPredictionResult(
+          modelName,
+          userRelativeEmail,
+          userFullName
+        )(req, res, next);
+      }
+
       const geminiPrompt =
         healthStatus === 'Healthy'
           ? 'Provide advice on how to stay healthy and avoid Breast Cancer'
@@ -242,7 +306,6 @@ const heart_disease_example_data: IHeartDiseaseFeatures = {
 
 export const predictHeartDisease = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-
     // check if there are any missing needed input feattures
     const missingFeatures = heartDiseaseFeatureNames.filter(
       (feature) => !(feature in heart_disease_example_data)
@@ -272,7 +335,6 @@ export const predictHeartDisease = catchAsync(
 
     const results = await heartDiseaseSession.run(feeds);
 
-
     // get prediction result
     const probabilities = results[heartDiseaseSession.outputNames[0]]
       .data as any;
@@ -280,9 +342,26 @@ export const predictHeartDisease = catchAsync(
 
     const currentUserId = req.user?.id as string;
 
-    // get a response from gemini based on the provided prediction result
     const healthStatus = predictedClass !== 1 ? 'Healthy' : 'Infected';
+    // sending email for the relative if the patient test was not health
+    const modelName = (req.body.modelName as string).replace('Specialist', '');
+    const user = await prisma.user.findFirst({
+      where: {
+        id: currentUserId,
+      },
+    });
+    const userRelativeEmail = user?.relativeEmail as string;
+    const userFullName = user?.name as string;
 
+    if (healthStatus !== 'Healthy') {
+      await sendEmailBasedOnPredictionResult(
+        modelName,
+        userRelativeEmail,
+        userFullName
+      )(req, res, next);
+    }
+
+    // get a response from gemini based on the provided prediction result
     const geminiPrompt =
       healthStatus === 'Healthy'
         ? 'Provide advice on how to stay healthy and avoid Heart Disease'

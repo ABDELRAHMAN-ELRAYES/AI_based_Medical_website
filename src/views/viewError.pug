@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title AI Models | #{title}
+    link(rel="icon" href="/img/images/logo.png")
+    link(rel="stylesheet" href="/styles/tailwind.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js")
+  
+  body(class="min-h-screen bg-gray-100 flex items-center justify-center p-4")
+    div(class="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center")
+      //- Pug Face
+      div(class="relative w-32 h-32 mx-auto mb-6")
+        div(class="absolute inset-0 bg-gray-300 rounded-full")
+        //- Eyes
+        div(class="absolute top-10 left-6 w-6 h-6 bg-black rounded-full")
+        div(class="absolute top-10 right-6 w-6 h-6 bg-black rounded-full")
+        //- Nose
+        div(class="absolute top-16 left-1/2 transform -translate-x-1/2 w-8 h-5 bg-black rounded-full")
+        //- Wrinkles
+        div(class="absolute top-14 left-4 w-6 h-1 bg-gray-400 rounded")
+        div(class="absolute top-14 right-4 w-6 h-1 bg-gray-400 rounded")
+
+      //- Error Content
+      div(class="space-y-4")
+        div(class="flex items-center justify-center gap-2 text-red-500")
+          i(data-lucide="alert-triangle")
+          h2(class="text-2xl font-bold") Error #{statusCode || '500'}
+
+        p(class="text-gray-600 mb-6") #{errorMessage || 'Oops! Something went wrong'}
+
+        button(
+          class="mt-6 px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+          onclick="window.location.reload()"
+        ) Try Again
+
+    script.
+      // Initialize Lucide icons
+      lucide.createIcons();
