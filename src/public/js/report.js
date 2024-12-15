@@ -5,7 +5,7 @@ document
 
     const opt = {
       margin: 1,
-      filename: 'report.pdf',
+      filename: 'Medical_Report.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },

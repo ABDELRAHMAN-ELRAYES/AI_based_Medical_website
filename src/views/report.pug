@@ -41,20 +41,46 @@ html(lang="en")
     h2(class="text-5xl font-semibold text-center text-blue-700 mt-[5rem] mb-[5rem]") Report
     section(class="w-3/4 mx-auto")
       div(id="reportContainer" class="w-full p-4 bg-white rounded-lg shadow-2xl")
-        h1(class="text-2xl font-semibold text-gray-700 mb-4") Prediction Result
-        div(class="flex flex-col items-center")
-          img(src=`/img/predict-users-images/${prediction.diseaseImg}` alt="Uploaded Image" class="w-96 h-auto mb-6 rounded-lg shadow-md")
-          h2(class="text-2xl") Disease Test:  #{prediction.modelName}
-          h2(class="text-2xl") Patient Name:  #{prediction.user.name}
-          h2(class="text-2xl") Prediction:  #{prediction.result}
-          h2(class="text-2xl") Prediction In Numbers:  #{prediction.resultInNumbers}
-          -const predictionTime = new Date(prediction.predictionDate).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit",hour: "2-digit",minute: "2-digit",hour12: true });
-          h4(class="text-2xl") Prediction Date: #{predictionTime}
-          if prediction.tips
-            p(class="text-center text-gray-700") Advice:
-            blockquote(class="text-center text-gray-500") #{prediction.tips}
-          button( id="downloadPdfButton" class="m-3 inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md transition-colors duration-200") Download as PDF
-    
+        div(class="max-w-6xl mx-auto p-8 bg-white")
+            div(class="flex flex-col gap-8" id="reportContainer" )
+              div(class="flex flex-col items-center justify-center")
+                if prediction.diseaseImg
+                  img(src=`/img/predict-users-images/${prediction.diseaseImg}` class="w-full max-w-md rounded-lg shadow-lg object-cover")
+                
+              // Right Column - Details
+              div(class="space-y-6")
+                // Header Section
+                div(class="border-b border-gray-200 pb-4")
+                  h2(class="text-3xl font-bold text-gray-800") Disease Test: #{prediction.modelName}
+                  h3(class="text-xl font-medium text-gray-600 mt-2") Patient Name: #{prediction.user.name}
+          
+                // Prediction Results Section
+                div(class="bg-gray-50 rounded-lg p-6")
+                  div(class="space-y-4")
+                    div(class="flex justify-between items-center")
+                      span(class="text-gray-600 font-medium") Prediction:
+                      span(class="text-xl font-semibold text-gray-800") #{prediction.result}
+                    
+                    div(class="flex justify-between items-center")
+                      span(class="text-gray-600 font-medium") Prediction In Numbers:
+                      span(class="text-xl font-semibold text-gray-800") #{prediction.resultInNumbers}
+          
+                // Timestamp Section
+                -const predictionTime = new Date(prediction.predictionDate).toLocaleString("en-US", {year: "numeric", month: "short",day: "2-digit",hour: "2-digit",minute: "2-digit",hour12: true });
+                div(class="text-sm text-gray-500")
+                  span(class="font-medium") Prediction Date: 
+                  span #{predictionTime}
+          
+                // Advice Section
+                if prediction.tips
+                  div(class="mt-6 bg-blue-50 rounded-lg p-6")
+                    h4(class="text-lg font-semibold text-blue-800 mb-2") Medical Advice
+                    p(class="text-blue-700 leading-relaxed") #{prediction.tips}
+    div(class="flex items-center justify-center h-auto")
+      button(id="downloadPdfButton" 
+                  class="mt-6 inline-flex items-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md p-4"
+                ) Download as PDF
+          
     h2(class="text-5xl font-semibold text-center text-blue-700 mt-[10rem] mb-[5rem]") Recommended Doctors
     section(class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mr-[10rem] ml-[10rem]")
       each doctor in doctors

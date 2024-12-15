@@ -15,6 +15,7 @@ export const preprocessImage = async (
 
   // Normalize pixel values to range [0, 1]
   const imgArray = new Float32Array(buffer.length);
+  
   for (let i = 0; i < buffer.length; i++) {
     imgArray[i] = buffer[i] / 255.0;
   }

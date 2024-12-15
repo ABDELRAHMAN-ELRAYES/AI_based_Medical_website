@@ -45,12 +45,15 @@ html(lang="en")
     // ========================================= End Nav Bar =========================================
 
     h2(class="text-5xl font-semibold text-center text-blue-700 m-5") Breast Cancer Test
+    // views/model3.pug
     section(class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md")
       form(class="space-y-6" action="/predict-breast-cancer" method="POST")
-      
+    
         input(type="text" value="Breast Cancer Specialist" name="modelName" style="display:none")
+    
         //- Main sections container with horizontal layout
         div(class="flex flex-col lg:flex-row gap-6 mb-6")
+          
           //- Mean Values Section
           div(class="flex-1 p-4 border rounded-lg bg-gray-50")
             h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Mean Values
@@ -61,10 +64,12 @@ html(lang="en")
                   input(
                     type="number"
                     name=label.toLowerCase().replace(' ', '_') + "_mean"
+                    value=breast_cancer_example_data[label.toLowerCase().replace(' ', '_') + "_mean"]
                     step="0.0001"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   )
+          
           //- Standard Error Values Section
           div(class="flex-1 p-4 border rounded-lg bg-gray-50")
             h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Standard Error Values
@@ -75,10 +80,12 @@ html(lang="en")
                   input(
                     type="number"
                     name=label.toLowerCase().replace(' ', '_') + "_se"
+                    value=breast_cancer_example_data[label.toLowerCase().replace(' ', '_') + "_se"]
                     step="0.0001"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   )
+            
           //- Worst Values Section
           div(class="flex-1 p-4 border rounded-lg bg-gray-50")
             h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Worst Values
@@ -89,13 +96,71 @@ html(lang="en")
                   input(
                     type="number"
                     name=label.toLowerCase().replace(' ', '_') + "_worst"
+                    value=breast_cancer_example_data[label.toLowerCase().replace(' ', '_') + "_worst"]
                     step="0.0001"
                     required
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   )
+      
         //- Submit Button centered at the bottom
         div(class="flex justify-center")
           button(
             type="submit"
             class="px-8 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
           ) Get Result
+    
+    
+    //- section(class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md")
+    //-   form(class="space-y-6" action="/predict-breast-cancer" method="POST")
+      
+    //-     input(type="text" value="Breast Cancer Specialist" name="modelName" style="display:none")
+    //-     //- Main sections container with horizontal layout
+    //-     div(class="flex flex-col lg:flex-row gap-6 mb-6")
+    //-       //- Mean Values Section
+    //-       div(class="flex-1 p-4 border rounded-lg bg-gray-50")
+    //-         h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Mean Values
+    //-         div(class="grid grid-cols-1 gap-4")
+    //-           each label in ['Radius', 'Texture', 'Perimeter', 'Area', 'Smoothness', 'Compactness', 'Concavity', 'Concave Points', 'Symmetry', 'Fractal Dimension']
+    //-             div(class="space-y-2")
+    //-               label(class="block text-sm font-medium text-gray-700")= label + " Mean"
+    //-               input(
+    //-                 type="number"
+    //-                 name=label.toLowerCase().replace(' ', '_') + "_mean"
+    //-                 step="0.0001"
+    //-                 required
+    //-                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    //-               )
+    //-       //- Standard Error Values Section
+    //-       div(class="flex-1 p-4 border rounded-lg bg-gray-50")
+    //-         h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Standard Error Values
+    //-         div(class="grid grid-cols-1 gap-4")
+    //-           each label in ['Radius', 'Texture', 'Perimeter', 'Area', 'Smoothness', 'Compactness', 'Concavity', 'Concave Points', 'Symmetry', 'Fractal Dimension']
+    //-             div(class="space-y-2")
+    //-               label(class="block text-sm font-medium text-gray-700")= label + " SE"
+    //-               input(
+    //-                 type="number"
+    //-                 name=label.toLowerCase().replace(' ', '_') + "_se"
+    //-                 step="0.0001"
+    //-                 required
+    //-                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    //-               )
+    //-       //- Worst Values Section
+    //-       div(class="flex-1 p-4 border rounded-lg bg-gray-50")
+    //-         h3(class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2") Worst Values
+    //-         div(class="grid grid-cols-1 gap-4")
+    //-           each label in ['Radius', 'Texture', 'Perimeter', 'Area', 'Smoothness', 'Compactness', 'Concavity', 'Concave Points', 'Symmetry', 'Fractal Dimension']
+    //-             div(class="space-y-2")
+    //-               label(class="block text-sm font-medium text-gray-700")= label + " Worst"
+    //-               input(
+    //-                 type="number"
+    //-                 name=label.toLowerCase().replace(' ', '_') + "_worst"
+    //-                 step="0.0001"
+    //-                 required
+    //-                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    //-               )
+    //-     //- Submit Button centered at the bottom
+    //-     div(class="flex justify-center")
+    //-       button(
+    //-         type="submit"
+    //-         class="px-8 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]"
+    //-       ) Get Result

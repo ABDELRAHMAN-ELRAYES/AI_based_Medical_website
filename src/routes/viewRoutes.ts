@@ -11,12 +11,12 @@ import {
   isOnSession,
   checkIfHaveRelativeEmail,
 } from '../controllers/authControllers';
-import {
-  predictBreastCancer,
-  predictChestDiseaseFromInputImage,
-  predictFromInputImage,
-  predictHeartDisease,
-} from '../controllers/modelControllers/modelController';
+import { heartDiseaseModelController } from '../controllers/modelControllers/heartDiseaseModelController';
+import { brainTumorModelController } from '../controllers/modelControllers/brainTumorModelController';
+import { chestXRayModelController } from '../controllers/modelControllers/chestXRayModelController';
+import { breastCancerModelController } from '../controllers/modelControllers/breastCancerModelController';
+import { strokePredictionModelController } from '../controllers/modelControllers/strokePredictionController';
+
 import { uploadInputImageFromUserToBePredicted } from '../middleware/middlewares';
 const viewRouter = Router();
 
@@ -62,7 +62,14 @@ viewRouter
     checkIfHaveRelativeEmail,
     renderView('model4', 'Heart Disease')
   );
-
+  viewRouter
+  .route('/stroke-occurance')
+  .get(
+    protect,
+    isLoggedin,
+    checkIfHaveRelativeEmail,
+    renderView('model5', 'Stroke Occurance')
+  );
 // viewRouter.route('/profile').get(protect, isLoggedin,renderView('profile', 'Profile'));
 
 viewRouter.route('/profile').get(protect, isLoggedin, renderUserProfile);
@@ -75,7 +82,7 @@ viewRouter
     protect,
     isLoggedin,
     uploadInputImageFromUserToBePredicted,
-    predictFromInputImage
+    brainTumorModelController
   );
 
 viewRouter
@@ -84,14 +91,19 @@ viewRouter
     protect,
     isLoggedin,
     uploadInputImageFromUserToBePredicted,
-    predictChestDiseaseFromInputImage
+    chestXRayModelController
   );
 
 viewRouter
   .route('/predict-breast-cancer')
-  .post(protect, isLoggedin, predictBreastCancer);
+  .post(protect, isLoggedin, breastCancerModelController);
+
 viewRouter
   .route('/predict-heart-disease')
-  .post(protect, isLoggedin, predictHeartDisease);
+  .post(protect, isLoggedin, heartDiseaseModelController);
+
+viewRouter
+  .route('/predict-stroke-accurance')
+  .post(protect, isLoggedin, strokePredictionModelController);
 
 export default viewRouter;

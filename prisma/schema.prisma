@@ -39,7 +39,7 @@ model Prediction {
   result          String
   resultInNumbers String
   tips            String
-  diseaseImg      String
+  diseaseImg      String?
   predictionDate  DateTime @default(now())
 
   userId String

@@ -12,19 +12,19 @@ html(lang="en")
     // ========================================== Nav Bar ==========================================
     nav(class="flex justify-between h-20 shadow-xl")
       div(class="p-4 w-28 flex items-center")
-        img(src="../images/logo.png" class="w-full h-auto cursor-pointer" alt="Logo")
+        img(src="/img/images/logo.png" class="w-full h-auto cursor-pointer" alt="Logo")
       div(class="p-6")
         img(src="../images/open.svg" id="open_icon" onclick="handleClickOpen()" class="w-8 min-800:hidden cursor-pointer")
         // Big Screen
         ul(class="flex max-800:hidden")
           li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
-            a(href="home.pug#home") Home
+            a(href="/home") Home
             span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
           li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
-            a(href="home.pug#Services") Services
+            a(href="/home#Services") Services
             span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
           li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
-            a(href="home.pug#models") Models
+            a(href="/home#models") Models
             span(class="absolute left-0 -bottom-1 h-0.5 w-0 bg-black transition-all duration-1000 group-hover:w-full")
           li(class="mx-6 cursor-pointer text-xl relative group hover:text-blue-900")
             a(href="/profile") Profile
@@ -44,16 +44,87 @@ html(lang="en")
 
     // ========================================= End Nav Bar =========================================
 
-    h1(class="text-3xl text-center p-10 font-mono") Welcome To Model 1
-    section(class="py-14 font-mono bg-[#2b2e34]")
-      form(id="dropzone" class="w-2/3 max-700:w-11/12 max-600:w-full mx-auto bg-white p-2 border-2 border-dashed border-gray-300 rounded-lg shadow-sm hover:border-blue-400 focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2" action="/predict" method="POST")
-        // Image Container
-        div(class="h-96 bg-gray-300 relative rounded-xl")
-          input(type="file" name="image" accept="image/*" id="fileInput" class="absolute top-0 left-0 h-full w-full z-50 opacity-0 cursor-pointer" required)
-          div(id="placeholder" class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center text-center p-4")
-            img(src="../images/upload.svg" alt="your Image" class="w-24 h-24 object-cover mb-4")
-            p(class="mt-2 text-xl text-gray-600") Drag & drop your image here, or
-              span(class="text-blue-500 font-medium cursor-pointer") browse
-          div(id="previewContainer" class="hidden h-4/5")
-            img(alt="Uploaded Image" id="previewImage" class="h-full w-full object-contain rounded-md")
-        button(type="submit" class="my-8 mx-auto block text-xl w-full text-center text-white bg-blue-700 hover:bg-blue-900 px-2 py-3 rounded-md") Submit
+    h2(class="text-5xl font-semibold text-center text-blue-700 m-5") Heart Disease Test
+    section(class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg")
+          h2(class="text-2xl font-bold text-gray-800 mb-6") Stroke Risk Assessment Form
+          form(class="space-y-6"  action="/predict-stroke-accurance" method="POST")
+            // Gender
+            div(class="form-group")
+              label(for="gender" class="block text-sm font-medium text-gray-700 mb-1") Gender
+              select(id="gender" name="gender" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                option(value="1") Male
+                option(value="0") Female
+            // Age
+            div(class="form-group")
+              label(for="age" class="block text-sm font-medium text-gray-700 mb-1") Age
+              input(
+                type="number"
+                id="age"
+                name="age"
+                value="67.0"
+                step="0.1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              )
+            // Medical Conditions
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+              div(class="form-group")
+                label(for="hypertension" class="block text-sm font-medium text-gray-700 mb-1") Hypertension
+                select(id="hypertension" name="hypertension" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                  option(value="0") No
+                  option(value="1") Yes
+              div(class="form-group")
+                label(for="heart_disease" class="block text-sm font-medium text-gray-700 mb-1") Heart Disease
+                select(id="heart_disease" name="heart_disease" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                  option(value="0") No
+                  option(value="1") Yes
+            // Marital Status
+            div(class="form-group")
+              label(for="ever_married" class="block text-sm font-medium text-gray-700 mb-1") Ever Married
+              select(id="ever_married" name="ever_married" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                option(value="1") Yes
+                option(value="0") No
+            // Work Type
+            div(class="form-group")
+              label(for="work_type" class="block text-sm font-medium text-gray-700 mb-1") Work Type
+              select(id="work_type" name="work_type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                option(value="0") Private
+                option(value="1") Self-employed
+                option(value="2") Government job
+                option(value="3") Never worked
+                option(value="4") Children
+            // Health Metrics
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-4")
+              div(class="form-group")
+                label(for="avg_glucose_level" class="block text-sm font-medium text-gray-700 mb-1") Average Glucose Level
+                input(
+                  type="number"
+                  id="avg_glucose_level"
+                  name="avg_glucose_level"
+                  value="228.69"
+                  step="0.01"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                )
+              div(class="form-group")
+                label(for="bmi" class="block text-sm font-medium text-gray-700 mb-1") BMI
+                input(
+                  type="number"
+                  id="bmi"
+                  name="bmi"
+                  value="36.6"
+                  step="0.1"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                )
+            // Smoking Status
+            div(class="form-group")
+              label(for="smoking_status" class="block text-sm font-medium text-gray-700 mb-1") Smoking Status
+              select(id="smoking_status" name="smoking_status" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                option(value="0") Never smoked
+                option(value="1") Formerly smoked
+                option(value="2") Currently smokes
+                option(value="3") Unknown
+            // Submit Button
+            div(class="mt-8")
+              button(
+                type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+              ) Get Result

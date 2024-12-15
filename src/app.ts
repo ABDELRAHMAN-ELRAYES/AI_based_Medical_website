@@ -71,8 +71,20 @@ ort.InferenceSession.create(heartDiseaseModelPath)
   .catch((err) => {
     console.error('Failed to load Heart Disease model:', err);
   });
+//! load AI Breast Cancer onnx model
+const strokePredictionModelPath = process.env
+  .STROKE_PREDICTION_MODEL_PATH as string;
+export let strokePredictionSession: ort.InferenceSession;
 
-  
+ort.InferenceSession.create(strokePredictionModelPath)
+  .then((s) => {
+    strokePredictionSession = s;
+    console.log('Stroke Prediction ONNX model loaded!');
+  })
+  .catch((err) => {
+    console.error('Failed to load Stroke Prediction model:', err);
+  });
+
 // using middlewares
 app.use(bodyParserMiddleware);
 app.use(formParser);
