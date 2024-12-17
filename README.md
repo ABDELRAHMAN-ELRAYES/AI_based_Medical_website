@@ -36,11 +36,13 @@ IYA-MED is a web-based healthcare platform that leverages AI models to predict d
 - **Express.js**: Web framework for building the backend API.
 - **Node.js**: Server-side runtime environment.
 - **Prisma**: ORM for database management.
+- **ONNX Runtime**: Used to connect and serve AI models efficiently.
 
 ### AI Models
 - **Python**: For training and running machine learning models.
 - **TensorFlow**: Frameworks used to build and train the predictive models.
 - **Scikit-learn**: For additional preprocessing and model evaluation.
+- **ONNX**: Format for exporting and deploying models with high performance.
 
 ### Database
 - **PostgreSQL**: Relational database for storing user inputs and predictions.
@@ -72,7 +74,7 @@ IYA-MED is a web-based healthcare platform that leverages AI models to predict d
      ```
 
 4. Configure Google OAuth:
-   - Set up a Google Cloud project and enable the OAuth 2.0 API.
+   - Set up a Google and enable the OAuth 2.0.
    - Add your client ID and secret to the `.env` file.
 
 5. Start the development server:
