@@ -51,7 +51,8 @@ html(lang="en")
               div(class="space-y-6")
                 // Header Section
                 div(class="border-b border-gray-200 pb-4")
-                  h2(class="text-3xl font-bold text-gray-800") Disease Test: #{prediction.modelName}
+                  - const modelName = (`${prediction.modelName}`.endsWith('Specialist'))? `${prediction.modelName}`.replace('Specialist',''):`${prediction.modelName}`;
+                  h2(class="text-3xl font-bold text-gray-800") Disease Test: #{modelName}
                   h3(class="text-xl font-medium text-gray-600 mt-2") Patient Name: #{prediction.user.name}
           
                 // Prediction Results Section

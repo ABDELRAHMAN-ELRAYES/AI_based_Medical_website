@@ -5,6 +5,9 @@ import {
   morganMiddleware,
   cookieParserMiddleware,
   passportInitializationMiddleware,
+  helmetMiddleware,
+  limiterMiddleware,
+  csrfMiddleware,
 } from './middleware/middlewares';
 import path from 'path';
 import userRouter from './routes/userRoutes';
