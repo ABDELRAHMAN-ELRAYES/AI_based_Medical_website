@@ -79,7 +79,7 @@ IYA-MED is a web-based healthcare platform that leverages AI models to predict d
 
 5. Start the development server:
    ```bash
-   npm run dev
+   npm run start:dev
    ```
 ---
 
